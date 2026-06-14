@@ -1,0 +1,110 @@
+\chapter{Wymagania systemowe}
+\label{cha:wymagania}
+
+\section{Wymagania funkcjonalne}
+\label{sec:wymaganiaFunkcjonalne}
+
+\begin{itemize}
+  \item \textbf{Zarządzanie kontami i rolami użytkowników}
+  \begin{itemize}
+    \item Użytkownik może samodzielnie zarejestrować nowe konto (imię, nazwisko, login, hasło),
+          wybierając przy rejestracji rolę - ucznia lub nauczyciela. Login jest unikalny w skali
+          całego systemu.
+    \item System rozróżnia dwie role - nauczyciela i ucznia - i po zalogowaniu udostępnia każdej
+          z nich odrębny zestaw funkcji oraz inny układ nawigacji. Każdy nauczyciel zarządza
+          wyłącznie własnymi testami.
+  \end{itemize}
+
+  \item \textbf{Zarządzanie grupami uczniów}
+  \begin{itemize}
+    \item Nauczyciel może tworzyć nowe grupy opatrzone nazwą i opisem oraz zarządzać ich składem.
+    \item Jeden uczeń może należeć do wielu grup jednocześnie.
+  \end{itemize}
+
+  \item \textbf{Tworzenie i edycja testów}
+  \begin{itemize}
+    \item Nauczyciel tworzy testy złożone z pytań trzech typów: jednokrotnego wyboru, wielokrotnego
+          wyboru oraz pytań otwartych.
+    \item Dla każdego testu określa nazwę, przedmiot, limit czasu, próg zaliczenia, dozwoloną liczbę
+          podejść, widoczność oraz grupy, którym test jest udostępniany.
+    \item Test można edytować, duplikować i usuwać. Po pojawieniu się rozwiązań edycja pytań jest
+          blokowana, aby nie naruszyć powiązanych z nimi odpowiedzi.
+    \item Tylko aktywny test jest widoczny dla uczniów; nowy test powstaje jako nieaktywny (szkic).
+  \end{itemize}
+
+  \item \textbf{Rozwiązywanie testów}
+  \begin{itemize}
+    \item Uczeń widzi listę testów przypisanych do jego grup, z podziałem na rozwiązane
+          i nierozwiązane.
+    \item Podczas rozwiązywania działa licznik czasu; po jego upływie test jest automatycznie
+          oddawany. Liczba podejść jest ograniczona wartością ustawioną przez nauczyciela.
+  \end{itemize}
+
+  \item \textbf{Ocenianie odpowiedzi}
+  \begin{itemize}
+    \item Pytania zamknięte są oceniane automatycznie, w wielokrotnym wyborze z punktami częściowymi.
+    \item Pytania otwarte ocenia ręcznie nauczyciel; może też skorygować punkty dowolnego pytania
+          każdego podejścia. Przy wielu podejściach liczy się najlepszy wynik.
+  \end{itemize}
+
+  \item \textbf{Wykrywanie prób oszustwa}
+  \begin{itemize}
+    \item Opuszczenie okna testu jest wykrywane: pierwsze skutkuje ostrzeżeniem, kolejne -
+          zakończeniem testu z wynikiem 0\% i oznaczeniem próby oszustwa.
+  \end{itemize}
+
+  \item \textbf{Statystyki i eksport wyników}
+  \begin{itemize}
+    \item Nauczyciel ma dostęp do statystyk testu (zdawalność, średni wynik, najtrudniejsze pytanie,
+          poprawność pytań) oraz może wyeksportować wyniki do pliku CSV.
+  \end{itemize}
+\end{itemize}
+
+\section{Wymagania niefunkcjonalne}
+\label{sec:wymaganiaNiefunkcjonalne}
+
+\textbf{Bezpieczeństwo}
+\begin{itemize}
+  \item Dostęp do funkcji systemu jest możliwy wyłącznie po zalogowaniu, a zakres uprawnień zależy
+        od roli. Hasła nie są przechowywane jawnie - zapisuje się ich skrót (SHA-256). Unikalność
+        loginów jest wymuszana na poziomie bazy danych.
+\end{itemize}
+
+\textbf{Niezawodność i obsługa błędów}
+\begin{itemize}
+  \item Operacje na bazie danych oraz operacje wejścia/wyjścia są zabezpieczone wspólnym mechanizmem
+        obsługi wyjątków. W razie błędu użytkownik otrzymuje zrozumiały komunikat, a aplikacja nie
+        ulega awarii.
+\end{itemize}
+
+\textbf{Spójność danych}
+\begin{itemize}
+  \item Integralność jest wymuszana kluczami obcymi z odpowiednimi regułami usuwania, unikalnym
+        indeksem oraz mechanizmem migracji wersjonującym schemat bazy.
+\end{itemize}
+
+\textbf{Użyteczność}
+\begin{itemize}
+  \item Interfejs jest czytelny i spójny, nawigacja odbywa się przez stały panel boczny, a komunikaty
+        prezentowane są w języku polskim. Nowy użytkownik bez trudu odnajduje podstawowe funkcje.
+\end{itemize}
+
+\textbf{Wydajność}
+\begin{itemize}
+  \item Kluczowe operacje (logowanie, wczytywanie testów, zapis wyniku) wykonują się w czasie
+        nieprzekraczającym kilku sekund.
+\end{itemize}
+
+\section{Założenia dotyczące działania systemu}
+\label{sec:zalozeniaSystemu}
+
+Przyjęto następujące założenia:
+
+\begin{itemize}
+  \item Aplikacja działa w systemie Windows 10/11 z zainstalowanym środowiskiem uruchomieniowym .NET.
+  \item Dostępna jest instancja serwera PostgreSQL; baza danych i jej schemat są tworzone automatycznie
+        przy pierwszym uruchomieniu za pomocą migracji Entity Framework Core.
+  \item Dane początkowe (przykładowy nauczyciel, uczniowie, grupy i testy) są wstawiane automatycznie,
+        co umożliwia natychmiastowe przetestowanie aplikacji.
+  \item Każdy nauczyciel pracuje na własnym zbiorze testów; grupy uczniów są zasobem współdzielonym.
+\end{itemize}

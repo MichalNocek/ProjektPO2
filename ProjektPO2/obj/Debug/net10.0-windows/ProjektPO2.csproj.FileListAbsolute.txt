@@ -343,3 +343,4 @@ C:\Users\Michał\Desktop\REPO PO2\ProjektPO2\ProjektPO2\obj\Debug\net10.0-window
 C:\Users\Michał\Desktop\REPO PO2\ProjektPO2\ProjektPO2\obj\Debug\net10.0-windows\ProjektPO2.pdb
 C:\Users\Michał\Desktop\REPO PO2\ProjektPO2\ProjektPO2\obj\Debug\net10.0-windows\ProjektPO2.genruntimeconfig.cache
 C:\Users\Michał\Desktop\REPO PO2\ProjektPO2\ProjektPO2\obj\Debug\net10.0-windows\ref\ProjektPO2.dll
+C:\Users\Michał\Desktop\REPO PO2\ProjektPO2\ProjektPO2\obj\Debug\net10.0-windows\ProjektPO2.sourcelink.json

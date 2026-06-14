@@ -1,0 +1,51 @@
+\chapter{Instrukcja uruchomienia projektu}
+\label{cha:uruchomienie}
+
+\section{Wymagania systemowe}
+\label{sec:wymaganiaUruch}
+
+\begin{itemize}
+  \item \textbf{System operacyjny:} Windows 10 lub Windows 11.
+  \item \textbf{Środowisko uruchomieniowe:} platforma .NET (wersja zgodna z projektem) ze wsparciem WPF.
+  \item \textbf{Serwer bazy danych:} PostgreSQL (zalecana wersja 13 lub nowsza).
+  \item \textbf{Dodatkowe narzędzia:} środowisko programistyczne wspierające .NET (np. Visual Studio)
+        oraz narzędzie do zarządzania bazą danych (np. pgAdmin).
+\end{itemize}
+
+\section{Konfiguracja bazy danych}
+\label{sec:konfBaza}
+
+Aplikacja łączy się z bazą danych PostgreSQL przy użyciu parametrów zdefiniowanych w klasie
+\texttt{AppDbContext}: serwer \texttt{localhost}, port \texttt{5432}, baza \texttt{testownik},
+użytkownik \texttt{postgres}. Przed pierwszym uruchomieniem należy zapewnić działający serwer
+PostgreSQL z dostępem do tych parametrów (w razie potrzeby parametry połączenia można dostosować
+w kodzie klasy \texttt{AppDbContext}).
+
+Ręczne tworzenie bazy ani tabel nie jest wymagane - schemat zakładany jest automatycznie. Przy
+starcie aplikacja wywołuje metodę \texttt{Database.Migrate()}, która tworzy bazę i nakłada wszystkie
+migracje Entity Framework Core, a następnie klasa \texttt{DbSeeder} wypełnia ją danymi początkowymi
+(przykładowy nauczyciel, uczniowie, grupy oraz testy).
+
+\section{Konfiguracja środowiska i uruchomienie aplikacji}
+\label{sec:uruchAplikacji}
+
+Kolejne kroki uruchomienia:
+
+\begin{enumerate}
+  \item uruchomić serwer PostgreSQL i upewnić się, że jest dostępny na \texttt{localhost:5432};
+  \item otworzyć projekt w środowisku Visual Studio (plik rozwiązania \texttt{ProjektPO2.slnx})
+        i uruchomić aplikację (lub wykonać polecenie \texttt{dotnet run} w katalogu projektu);
+  \item przy pierwszym uruchomieniu baza zostanie utworzona i zasilona danymi demonstracyjnymi;
+  \item zalogować się przy użyciu jednego z kont demonstracyjnych.
+\end{enumerate}
+
+\section{Dane logowania testowego}
+\label{sec:daneLogowania}
+
+Po zasileniu bazy danymi początkowymi dostępne są konta demonstracyjne (hasło dla wszystkich:
+\texttt{demo1234}):
+
+\begin{itemize}
+  \item nauczyciel - login \texttt{m.dabrowski};
+  \item uczniowie - loginy \texttt{anna.k}, \texttt{piotr.n}, \texttt{maria.w} oraz kolejni.
+\end{itemize}

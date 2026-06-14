@@ -1,0 +1,55 @@
+\chapter{Technologie wykorzystane w projekcie}
+\label{cha:technologie}
+
+\section{Technologie interfejsu użytkownika}
+\label{sec:techUI}
+
+Warstwę prezentacji zrealizowano w technologii \emph{Windows Presentation Foundation}
+(WPF)~\cite{msdocsWPF} na platformie .NET, w języku C\#~\cite{msdocsCSharp}. WPF posłużył do budowy
+okien aplikacji, paska bocznego nawigacji oraz ekranów poszczególnych modułów. Wygląd aplikacji
+(kolory, style kontrolek) zdefiniowano w słowniku zasobów \texttt{Theme.xaml}, co oddziela warstwę
+wizualną od logiki. Strona logowania zbudowana jest deklaratywnie w pliku XAML, natomiast pozostałe
+ekrany tworzone są dynamicznie w kodzie, z wykorzystaniem wspólnych metod pomocniczych budujących
+powtarzalne elementy interfejsu (karty, znaczniki statusu, wykresy).
+
+\section{Technologie dostępu do danych}
+\label{sec:techDane}
+
+Warstwę dostępu do danych oparto na bibliotece \emph{Entity Framework Core}~\cite{msdocsEFCore} -
+mechanizmie mapowania obiektowo-relacyjnego (ORM). Pozwala on operować na bazie za pomocą obiektów
+języka C\# i zapytań LINQ, bez ręcznego pisania większości zapytań SQL. Systemem zarządzania bazą danych jest
+\emph{PostgreSQL}~\cite{postgresql}, łączony z aplikacją za pośrednictwem dostawcy
+\emph{Npgsql}~\cite{npgsql}. Schemat bazy jest wersjonowany i tworzony automatycznie poprzez migracje
+Entity Framework Core.
+
+\section{Dodatkowe biblioteki i narzędzia}
+\label{sec:techDodatkowe}
+
+W projekcie wykorzystano ponadto:
+
+\begin{itemize}
+  \item \texttt{System.Security.Cryptography} - moduł platformy .NET użyty do wyznaczania skrótu
+        SHA-256 haseł użytkowników.
+  \item \texttt{System.IO} (\texttt{StreamWriter}) - strumieniowy zapis pliku CSV z wynikami testu,
+        z kodowaniem UTF-8 obsługującym polskie znaki.
+  \item \emph{Visual Studio} - środowisko programistyczne wykorzystane do budowy i uruchamiania
+        aplikacji.
+  \item \emph{pgAdmin} - narzędzie do zarządzania bazą danych PostgreSQL.
+  \item \emph{Git} - system kontroli wersji projektu.
+\end{itemize}
+
+\section{Uzasadnienie wyboru technologii}
+\label{sec:techUzasadnienie}
+
+WPF, Entity Framework Core i PostgreSQL dobrano pod charakter aplikacji:
+
+\begin{itemize}
+  \item \textbf{WPF} wybrano, bo aplikacja jest programem desktopowym z rozbudowanym interfejsem
+        (karty, wykresy, stylizacja), a nie potrzebuje serwera ani przeglądarki.
+  \item \textbf{Entity Framework Core} wybrano zamiast bezpośredniego ADO.NET, ponieważ model danych
+        opiera się na dziedziczeniu (trzy hierarchie klas) i wielu relacjach. ORM odwzorowuje je
+        automatycznie (strategią Table-per-Hierarchy), a migracje pozwalają wersjonować schemat bez
+        ręcznego pisania skryptów SQL, co skraca kod warstwy danych.
+  \item \textbf{PostgreSQL} to darmowy, otwarty i niezawodny system bazodanowy, dobrze wspierany
+        przez Entity Framework Core poprzez dostawcę Npgsql.
+\end{itemize}

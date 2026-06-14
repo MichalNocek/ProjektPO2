@@ -1,51 +1,61 @@
 \chapter{Podsumowanie}
 \label{cha:podsumowanie}
 
-Celem projektu było stworzenie aplikacji wspierającej nauczyciela i ucznia w pełnym cyklu pracy
-z testami - od ich ułożenia, przez udostępnienie i rozwiązanie, aż po ocenę i analizę wyników. Cel
-ten został zrealizowany: powstała spójna, w pełni funkcjonalna aplikacja desktopowa napisana
-w języku C\# na platformie .NET, z interfejsem graficznym opartym na technologii WPF i z relacyjną
-bazą danych PostgreSQL obsługiwaną przez Entity Framework Core.
+\section{Ocena stopnia realizacji założeń}
+\label{sec:ocenaRealizacji}
 
-\section*{Zrealizowane funkcjonalności}
-
-W ramach projektu udało się zrealizować wszystkie założone funkcje:
+Cel projektu został zrealizowany. Powstała działająca aplikacja desktopowa wspierająca nauczyciela
+i ucznia w pracy z testami, napisana w C\# na platformie .NET, z interfejsem WPF i bazą PostgreSQL
+obsługiwaną przez Entity Framework Core. Zrealizowano wszystkie założone funkcje:
 
 \begin{itemize}
-  \item \textbf{Konta i role} - rejestracja (z wyborem roli) i logowanie użytkowników
-        z rozróżnieniem ról nauczyciela i ucznia oraz odrębnymi panelami dla każdej z nich; każdy
-        nauczyciel zarządza wyłącznie własnymi testami.
-  \item \textbf{Grupy} - tworzenie grup i zarządzanie ich składem, z możliwością przynależności
-        ucznia do wielu grup.
-  \item \textbf{Testy} - tworzenie, edycja, duplikowanie i usuwanie testów złożonych z pytań
-        jednokrotnego wyboru, wielokrotnego wyboru oraz pytań otwartych, wraz z walidacją
-        kompletności testu oraz sterowaniem widocznością (test aktywny/nieaktywny).
-  \item \textbf{Rozwiązywanie testów} - rozwiązywanie testów w ograniczonym czasie, z obsługą
-        wielu podejść i wyborem najlepszego wyniku.
-  \item \textbf{Ocenianie} - automatyczne ocenianie pytań zamkniętych (z punktami częściowymi)
-        oraz ręczne ocenianie i edycja oceny dowolnego podejścia (z możliwością nadpisania punktów
-        każdego pytania) z automatycznym przeliczaniem wyniku.
-  \item \textbf{Bezpieczeństwo i integralność} - haszowanie haseł, unikalność loginów, wykrywanie
-        prób oszustwa oraz spójność danych zapewniona przez klucze obce i migracje.
-  \item \textbf{Analiza wyników} - statystyki testu z prezentacją wszystkich podejść uczniów oraz
-        eksport wyników do pliku CSV.
+  \item \textbf{Konta i role} - rejestracja z wyborem roli i logowanie z rozróżnieniem nauczyciela
+        i ucznia; każdy nauczyciel zarządza wyłącznie własnymi testami.
+  \item \textbf{Grupy} - tworzenie grup i zarządzanie ich składem, z przynależnością ucznia do wielu
+        grup.
+  \item \textbf{Testy} - tworzenie, edycja, duplikowanie i usuwanie testów z trzema typami pytań,
+        walidacją kompletności oraz sterowaniem widocznością.
+  \item \textbf{Rozwiązywanie} - rozwiązywanie w ograniczonym czasie, z obsługą wielu podejść
+        i wyborem najlepszego wyniku.
+  \item \textbf{Ocenianie} - automatyczne ocenianie pytań zamkniętych (z punktami częściowymi) oraz
+        ręczne ocenianie i korekta oceny dowolnego podejścia.
+  \item \textbf{Bezpieczeństwo i integralność} - haszowanie haseł, unikalność loginów, wykrywanie prób
+        oszustwa, spójność danych zapewniona kluczami obcymi i migracjami.
+  \item \textbf{Analiza wyników} - statystyki testu z prezentacją wszystkich podejść oraz eksport do CSV.
 \end{itemize}
 
-W trakcie tworzenia projektu zastosowano zasady programowania obiektowego: dziedziczenie
-(odwzorowane w bazie danych strategią Table-per-Hierarchy), enkapsulację oraz podział kodu na
-niezależne, logiczne warstwy. Dzięki temu struktura aplikacji jest czytelna i łatwa w utrzymaniu.
+W trakcie tworzenia projektu zastosowano zasady programowania obiektowego: dziedziczenie (odwzorowane
+w bazie strategią Table-per-Hierarchy), enkapsulację, polimorfizm oraz podział kodu na niezależne
+warstwy, dzięki czemu struktura aplikacji jest czytelna i łatwa w utrzymaniu.
 
-\section*{Możliwości dalszego rozwoju}
+\section{Napotkane problemy}
+\label{sec:problemy}
+
+Podczas realizacji projektu napotkano kilka trudności wymagających dodatkowej uwagi:
+
+\begin{itemize}
+  \item \textbf{Mapowanie dziedziczenia na bazę danych} - odwzorowanie trzech hierarchii klas
+        wymagało prawidłowej konfiguracji strategii Table-per-Hierarchy oraz dyskryminatorów.
+  \item \textbf{Reguły usuwania powiązanych danych} - konieczne było staranne dobranie reguł
+        kaskadowego i ograniczającego usuwania, tak aby usunięcie testu czyściło powiązane dane,
+        a edycja testu z istniejącymi rozwiązaniami nie naruszała oddanych odpowiedzi uczniów.
+  \item \textbf{Obsługa wielu podejść} - wymagała rozróżnienia między zapisem nowego podejścia
+        a aktualizacją oceny istniejącego oraz spójnego liczenia najlepszego wyniku.
+  \item \textbf{Wykrywanie prób oszustwa} - konieczne było odróżnienie własnych okien dialogowych
+        aplikacji od faktycznego przełączenia się użytkownika na inny program.
+\end{itemize}
+
+\section{Możliwe kierunki dalszego rozwoju}
+\label{sec:dalszyRozwoj}
 
 Choć aplikacja jest w pełni funkcjonalna, można ją w przyszłości rozbudować, na przykład o:
 
 \begin{itemize}
   \item losowanie kolejności pytań i odpowiedzi w celu dodatkowego utrudnienia ściągania,
-  \item podgląd historii własnych podejść po stronie ucznia (obecnie uczeń widzi swój najlepszy
-        wynik, a pełną historię podejść ma nauczyciel w statystykach),
+  \item podgląd historii własnych podejść po stronie ucznia,
   \item terminy dostępności testów (przedział dat, w którym test można rozwiązać),
   \item rozbudowane raporty i wykresy postępów uczniów w czasie.
 \end{itemize}
 
-Dodanie tych funkcji zwiększyłoby użyteczność systemu, jednak w obecnej formie projekt w pełni
-spełnia założone wymagania i stanowi solidną podstawę do dalszej rozbudowy.
+Funkcje te nie były jednak konieczne do realizacji założeń projektu, które zostały spełnione
+w całości.

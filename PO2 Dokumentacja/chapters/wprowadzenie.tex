@@ -1,0 +1,88 @@
+\chapter{Wprowadzenie i analiza problemu}
+\label{cha:wprowadzenie}
+
+\section{Opis analizowanego problemu}
+\label{sec:problem}
+
+Sprawdzanie wiedzy uczniów za pomocą testów jest jednym z podstawowych zadań nauczyciela, jednak
+w tradycyjnej, papierowej formie jest ono czasochłonne i mało wygodne. Wymaga ręcznego przygotowania
+arkuszy, ich powielenia, a następnie żmudnego sprawdzania odpowiedzi i podliczania punktów. Dodatkowo
+gromadzenie wyników oraz analiza tego, które zagadnienia sprawiają uczniom najwięcej trudności, są
+w takim modelu praktycznie niemożliwe do przeprowadzenia na bieżąco.
+
+Istnieją platformy do testów online, jednak najczęściej są to rozwiązania webowe, wymagające stałego
+dostępu do Internetu i kont w usługach zewnętrznych, a ich pełne możliwości są zwykle płatne. Brakuje
+prostego, samodzielnego narzędzia desktopowego, które łączyłoby tworzenie testów, ich automatyczne
+ocenianie oraz analizę wyników w jednym miejscu, z danymi przechowywanymi w lokalnej bazie.
+
+\section{Cel projektu}
+\label{sec:cel}
+
+Celem projektu było stworzenie od podstaw funkcjonalnej aplikacji okienkowej w języku C\#,
+współpracującej z relacyjną bazą danych, która realizuje pełny cykl pracy z testem:
+
+\begin{itemize}
+  \item rejestrację i logowanie użytkowników z bezpiecznym przechowywaniem haseł oraz rozróżnieniem
+        ról nauczyciela i ucznia,
+  \item tworzenie testów złożonych z pytań jednokrotnego wyboru, wielokrotnego wyboru i pytań
+        otwartych, z możliwością sterowania ich widocznością,
+  \item przypisywanie testów grupom uczniów,
+  \item rozwiązywanie testów przez uczniów w ograniczonym czasie, z obsługą wielu podejść,
+  \item automatyczne ocenianie pytań zamkniętych oraz ręczne ocenianie i korektę punktów,
+  \item wykrywanie prób oszustwa podczas rozwiązywania testu,
+  \item analizę wyników w postaci statystyk oraz eksport do pliku CSV.
+\end{itemize}
+
+\section{Zakres realizowanych funkcjonalności}
+\label{sec:zakres}
+
+Zakres projektu obejmuje następujące moduły:
+
+\begin{enumerate}
+  \item \textbf{Moduł uwierzytelniania} - rejestracja (z wyborem roli), logowanie, haszowanie haseł,
+        rozróżnienie ról nauczyciel/uczeń.
+  \item \textbf{Moduł zarządzania grupami} - tworzenie grup, zarządzanie ich składem, przynależność
+        ucznia do wielu grup.
+  \item \textbf{Moduł testów} - tworzenie, edycja, duplikowanie i usuwanie testów, edytor pytań,
+        ustawienia (czas, próg, liczba podejść), sterowanie widocznością (aktywny/nieaktywny).
+  \item \textbf{Moduł rozwiązywania testów} - rozwiązywanie w ograniczonym czasie, nawigacja między
+        pytaniami, limit podejść, wykrywanie opuszczenia okna testu.
+  \item \textbf{Moduł oceniania} - automatyczne ocenianie pytań zamkniętych, ręczne ocenianie pytań
+        otwartych oraz korekta oceny dowolnego podejścia.
+  \item \textbf{Moduł statystyk} - zdawalność, średni wynik, trudność pytań, tabela wyników,
+        eksport do CSV.
+\end{enumerate}
+
+\section{Przegląd istniejących rozwiązań}
+\label{sec:przeglad}
+
+Przed realizacją projektu przeanalizowano kilka istniejących narzędzi o podobnym przeznaczeniu.
+
+\subsection{Kahoot!}
+
+Popularna platforma do quizów i testów, działająca w przeglądarce, często wykorzystywana w szkołach.
+Jej zaletą jest grywalizacja i prostota, jednak jest to wyłącznie usługa internetowa, wymagająca
+stałego dostępu do sieci i konta, a obsługuje głównie pytania zamknięte. Pełne funkcje (m.in.
+rozbudowane raporty) są dostępne w wersji płatnej.
+
+\subsection{Microsoft Forms / Google Forms}
+
+Webowe narzędzia do tworzenia formularzy i quizów, umożliwiające automatyczne sprawdzanie odpowiedzi
+zamkniętych i zbieranie wyników. Są wygodne i darmowe w podstawowym zakresie, ale stanowią ogólne
+narzędzia do ankiet - brakuje im funkcji typowo dydaktycznych, takich jak limit podejść, grupy
+uczniów z przypisanymi testami, ręczne ocenianie pytań otwartych z korektą czy wykrywanie prób
+oszustwa. Wymagają też konta w usłudze chmurowej i połączenia z Internetem.
+
+\subsection{Moduł testów w systemie Moodle}
+
+Moodle to rozbudowana platforma e-learningowa oferująca zaawansowany moduł testów (różne typy pytań,
+banki pytań, statystyki). Jest jednak ciężka we wdrożeniu - wymaga serwera, bazy danych i konfiguracji
+całej platformy - co czyni ją nieproporcjonalnie złożoną do prostego scenariusza, w którym nauczyciel
+chce jedynie szybko ułożyć test i sprawdzić wyniki na własnym komputerze.
+
+\subsection{Wnioski z analizy}
+
+Żadne z analizowanych rozwiązań nie łączy lekkiej, samodzielnej aplikacji desktopowej z własną,
+lokalną bazą danych, automatycznym i ręcznym ocenianiem (w tym pytań otwartych), obsługą grup,
+limitem podejść, sterowaniem widocznością testu oraz wykrywaniem prób oszustwa - bez konieczności
+korzystania z usług chmurowych. Te cechy wyznaczyły zakres tego projektu.

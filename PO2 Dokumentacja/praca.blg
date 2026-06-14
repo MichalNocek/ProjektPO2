@@ -3,14 +3,24 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: praca.aux
 Reallocating 'name_of_file' (item size: 1) to 26 items.
 A level-1 auxiliary file: chapters/streszczenie.aux
+Reallocating 'name_of_file' (item size: 1) to 26 items.
+A level-1 auxiliary file: chapters/wprowadzenie.aux
 Reallocating 'name_of_file' (item size: 1) to 23 items.
-A level-1 auxiliary file: chapters/zalozenia.aux
-Reallocating 'name_of_file' (item size: 1) to 23 items.
-A level-1 auxiliary file: chapters/struktura.aux
+A level-1 auxiliary file: chapters/wymagania.aux
+Reallocating 'name_of_file' (item size: 1) to 26 items.
+A level-1 auxiliary file: chapters/architektura.aux
 Reallocating 'name_of_file' (item size: 1) to 25 items.
-A level-1 auxiliary file: chapters/harmonogram.aux
+A level-1 auxiliary file: chapters/technologie.aux
+Reallocating 'name_of_file' (item size: 1) to 18 items.
+A level-1 auxiliary file: chapters/baza.aux
+Reallocating 'name_of_file' (item size: 1) to 27 items.
+A level-1 auxiliary file: chapters/implementacja.aux
 Reallocating 'name_of_file' (item size: 1) to 25 items.
 A level-1 auxiliary file: chapters/prezentacja.aux
+Reallocating 'name_of_file' (item size: 1) to 25 items.
+A level-1 auxiliary file: chapters/harmonogram.aux
+Reallocating 'name_of_file' (item size: 1) to 26 items.
+A level-1 auxiliary file: chapters/uruchomienie.aux
 Reallocating 'name_of_file' (item size: 1) to 26 items.
 A level-1 auxiliary file: chapters/podsumowanie.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
@@ -19,7 +29,7 @@ Reallocating 'name_of_file' (item size: 1) to 13 items.
 Database file #1: bibliografia.bib
 You've used 5 entries,
             2118 wiz_defined-function locations,
-            526 strings with 4702 characters,
+            531 strings with 4822 characters,
 and the built_in function-call counts, 1105 in all, are:
 = -- 110
 > -- 35

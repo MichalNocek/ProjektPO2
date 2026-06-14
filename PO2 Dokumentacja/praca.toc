@@ -1,33 +1,71 @@
 \babel@toc {polish}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{\numberline {1}Streszczenie w języku polskim i angielskim}{6}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Streszczenie w języku polskim}{6}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Streszczenie w języku angielskim}{6}{section.1.2}%
+\contentsline {chapter}{\numberline {1}Streszczenie w języku polskim i angielskim}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Streszczenie w języku polskim}{7}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Streszczenie w języku angielskim}{7}{section.1.2}%
 \babel@toc {english}{}\relax 
 \babel@toc {polish}{}\relax 
-\contentsline {chapter}{\numberline {2}Opis założeń projektu}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Wymagania funkcjonalne projektu}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Wymagania niefunkcjonalne projektu}{8}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Opis struktury projektu}{10}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Architektura i wykorzystane technologie}{10}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Zarządzanie danymi - baza danych}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Hierarchia klas i kluczowe metody}{12}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Minimalne wymagania programu}{14}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Uruchomienie aplikacji}{14}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Harmonogram realizacji projektu}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Napotkane trudności w trakcie realizacji projektu}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Repozytorium i system kontroli wersji}{16}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Prezentacja warstwy użytkowej projektu}{17}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Ekran logowania i rejestracji}{17}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Pulpit nauczyciela}{17}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Lista testów i edytor testu}{18}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Ocenianie pytań otwartych}{20}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Zarządzanie grupami}{20}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Statystyki testu i eksport wyników}{21}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Lista testów ucznia}{22}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Rozwiązywanie testu}{23}{section.5.8}%
-\contentsline {section}{\numberline {5.9}Wynik testu}{23}{section.5.9}%
-\contentsline {chapter}{\numberline {6}Podsumowanie}{25}{chapter.6}%
-\contentsline {chapter}{Bibliografia}{27}{chapter.6}%
-\contentsline {chapter}{Spis rysunków}{28}{chapter*.15}%
-\contentsline {chapter}{Spis tabel}{29}{chapter*.15}%
+\contentsline {chapter}{\numberline {2}Wprowadzenie i analiza problemu}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Opis analizowanego problemu}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Cel projektu}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Zakres realizowanych funkcjonalności}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Przegląd istniejących rozwiązań}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Kahoot!}{9}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Microsoft Forms / Google Forms}{9}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Moduł testów w systemie Moodle}{9}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Wnioski z analizy}{9}{subsection.2.4.4}%
+\contentsline {chapter}{\numberline {3}Wymagania systemowe}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Wymagania funkcjonalne}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Wymagania niefunkcjonalne}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Założenia dotyczące działania systemu}{11}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Architektura i struktura aplikacji}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Architektura aplikacji}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Struktura folderów i organizacja kodu}{12}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Zastosowane wzorce projektowe}{12}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Mechanizmy walidacji danych}{13}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Obsługa błędów i wyjątków}{13}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Technologie wykorzystane w projekcie}{14}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Technologie interfejsu użytkownika}{14}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Technologie dostępu do danych}{14}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Dodatkowe biblioteki i narzędzia}{14}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Uzasadnienie wyboru technologii}{14}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Projekt bazy danych}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Opis modelu danych}{15}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Diagram ERD}{15}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Opis relacji i kluczy}{16}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Normalizacja}{16}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Migracje bazy danych}{17}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Mechanizmy zapewniające integralność danych}{17}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Implementacja aplikacji}{18}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Najważniejsze moduły systemu}{18}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Mechanizm logowania i autoryzacji}{20}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Realizacja operacji CRUD}{20}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Logika oceniania}{20}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Organizacja nawigacji}{21}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Interfejs użytkownika i stylizacja}{21}{section.7.6}%
+\contentsline {chapter}{\numberline {8}Prezentacja warstwy użytkowej projektu}{22}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Ekran logowania i rejestracji}{22}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Pulpit nauczyciela}{23}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Lista testów i edytor testu}{23}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Ocenianie pytań otwartych}{25}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Zarządzanie grupami}{25}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Statystyki testu i eksport wyników}{26}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Lista testów ucznia}{27}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Rozwiązywanie testu}{28}{section.8.8}%
+\contentsline {section}{\numberline {8.9}Wynik testu}{28}{section.8.9}%
+\contentsline {chapter}{\numberline {9}Harmonogram realizacji projektu}{30}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Napotkane trudności w trakcie realizacji projektu}{30}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Repozytorium i system kontroli wersji}{31}{section.9.2}%
+\contentsline {chapter}{\numberline {10}Instrukcja uruchomienia projektu}{32}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Wymagania systemowe}{32}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Konfiguracja bazy danych}{32}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Konfiguracja środowiska i uruchomienie aplikacji}{32}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Dane logowania testowego}{32}{section.10.4}%
+\contentsline {chapter}{\numberline {11}Podsumowanie}{33}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Ocena stopnia realizacji założeń}{33}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Napotkane problemy}{33}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Możliwe kierunki dalszego rozwoju}{34}{section.11.3}%
+\contentsline {chapter}{Bibliografia}{35}{section.11.3}%
+\contentsline {chapter}{Spis rysunków}{36}{chapter*.15}%
+\contentsline {chapter}{Spis tabel}{37}{chapter*.15}%
+\contentsline {chapter}{Spis listingów}{38}{chapter*.15}%

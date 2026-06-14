@@ -1,0 +1,87 @@
+\chapter{Architektura i struktura aplikacji}
+\label{cha:architektura}
+
+\section{Architektura aplikacji}
+\label{sec:architektura}
+
+Aplikacja ma architekturę warstwową. Wyróżniono cztery warstwy o odrębnych
+odpowiedzialnościach:
+
+\begin{enumerate}
+  \item \textbf{Warstwa modelu (\texttt{Models})} - klasy encji odwzorowujące obiekty dziedziny
+        (użytkownik, grupa, test, pytanie, podejście, odpowiedź), mapowane na tabele bazy danych
+        przez Entity Framework Core.
+  \item \textbf{Warstwa dostępu do danych (\texttt{Data})} - kontekst bazy danych
+        (\texttt{AppDbContext}) z konfiguracją relacji i dziedziczenia, mechanizm migracji oraz klasa
+        zasilająca bazę danymi początkowymi (\texttt{DbSeeder}).
+  \item \textbf{Warstwa logiki i usług (\texttt{Services})} - repozytorium operacji bazodanowych
+        (\texttt{DbRepository}), serwis oceniania (\texttt{GradingService}), eksport do CSV
+        (\texttt{CsvExporter}), haszowanie haseł (\texttt{PasswordHash}) oraz wspólna obsługa
+        wyjątków (\texttt{Safe}). Tu znajdują się także obiekty transferu danych (DTO).
+  \item \textbf{Warstwa prezentacji (\texttt{Views})} - okna i ekrany aplikacji zbudowane w
+        technologii WPF, odpowiedzialne za wyświetlanie danych i obsługę interakcji użytkownika.
+\end{enumerate}
+
+Przepływ jest jednokierunkowy: widok wywołuje warstwę usług, ta korzysta z repozytorium, a
+repozytorium komunikuje się z bazą przez kontekst Entity Framework Core. Widoki nigdy nie odwołują
+się do bazy bezpośrednio - zawsze pośredniczy w tym warstwa usług.
+
+\section{Struktura folderów i organizacja kodu}
+\label{sec:foldery}
+
+Kod źródłowy podzielono na foldery odpowiadające warstwom aplikacji (listing~\ref{lst:foldery}).
+
+\begin{lstlisting}[caption={Struktura katalogów projektu.}, label=lst:foldery]
+ProjektPO2/
+|-- App.xaml(.cs)              // punkt startowy aplikacji
+|-- MainWindow.xaml(.cs)       // powloka: panel boczny + obszar tresci
+|-- Theme.xaml                 // motyw: kolory, style kontrolek
+|-- Models/                    // encje (User, Quiz, Question, ...)
+|-- Data/                      // AppDbContext, DbSeeder, fabryka kontekstu
+|-- Migrations/                // migracje EF Core
+|-- Services/                  // DbRepository, GradingService, CsvExporter,
+|                              //   PasswordHash, Safe, DTO (AppModels)
+|-- Views/                     // ekrany aplikacji (Login, Teacher*, Quiz, ...)
+\-- Commands/                  // RelayCommand
+\end{lstlisting}
+
+\section{Zastosowane wzorce projektowe}
+\label{sec:wzorce}
+
+W projekcie wykorzystano kilka rozwiązań i wzorców porządkujących kod:
+
+\begin{itemize}
+  \item \textbf{Architektura warstwowa} - oddzielenie modelu, dostępu do danych, logiki i prezentacji.
+  \item \textbf{Repozytorium (Repository)} - klasa \texttt{DbRepository} hermetyzuje cały dostęp do
+        bazy danych i odcina od niej resztę aplikacji.
+  \item \textbf{Obiekty transferu danych (DTO)} - lekkie klasy w warstwie usług oddzielają dane
+        prezentowane w widokach od encji bazodanowych.
+  \item \textbf{Dziedziczenie i polimorfizm} - trzy hierarchie klas abstrakcyjnych (użytkownicy,
+        pytania, odpowiedzi) mapowane na bazę strategią Table-per-Hierarchy.
+  \item \textbf{Interfejs \texttt{IPublishable}} - implementowany przez klasę \texttt{Quiz},
+        ujednolica sterowanie widocznością testu (metody \texttt{Publish()} i \texttt{Unpublish()}).
+\end{itemize}
+
+\section{Mechanizmy walidacji danych}
+\label{sec:walidacja}
+
+Walidacja realizowana jest na trzech poziomach:
+
+\begin{enumerate}
+  \item \textbf{Interfejs użytkownika} - pola formularzy są sprawdzane przed zapisem: niepuste
+        wymagane pola, liczby ograniczane do dozwolonego zakresu (np. czas, próg, liczba podejść),
+        a edytor testu blokuje zapis testu niekompletnego (pytanie bez poprawnej odpowiedzi, puste
+        pola, brak przypisanej grupy).
+  \item \textbf{Logika aplikacji} - serwis oceniania pilnuje zakresu przyznawanych punktów, a
+        repozytorium dba o spójność operacji (np. bezpieczną kolejność usuwania powiązanych danych).
+  \item \textbf{Baza danych} - ograniczenia na poziomie tabel (klucze obce, unikalny indeks)
+        zapewniają spójność nawet przy bezpośrednim dostępie do bazy.
+\end{enumerate}
+
+\section{Obsługa błędów i wyjątków}
+\label{sec:bledy}
+
+Operacje na bazie danych oraz operacje wejścia/wyjścia są wykonywane za pośrednictwem wspólnej klasy
+\texttt{Safe}, która przechwytuje wyjątki i prezentuje użytkownikowi czytelny komunikat zamiast
+powodować awarię aplikacji. Dzięki temu np. brak połączenia z bazą czy błąd zapisu pliku CSV nie
+zatrzymuje programu, a użytkownik dowiaduje się o przyczynie problemu.

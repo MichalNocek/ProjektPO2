@@ -1,0 +1,124 @@
+\chapter{Implementacja aplikacji}
+\label{cha:implementacja}
+
+\section{Najważniejsze moduły systemu}
+\label{sec:moduly}
+
+Logika aplikacji skupiona jest w warstwie usług. Kluczowe klasy to:
+
+\begin{itemize}
+  \item \texttt{DbRepository} - centralne repozytorium operacji na bazie danych; pobieranie
+        i zapisywanie testów, grup, podejść i wyników oraz mapowanie encji na obiekty DTO,
+  \item \texttt{GradingService} - logika oceniania (punkty za pojedyncze pytanie oraz przeliczanie
+        całego wyniku podejścia),
+  \item \texttt{CsvExporter} - eksport wyników testu do pliku CSV,
+  \item \texttt{PasswordHash} - haszowanie haseł,
+  \item \texttt{Safe} - wspólna obsługa wyjątków.
+\end{itemize}
+
+Wzajemne powiązania najważniejszych klas modelu przedstawia diagram UML na rysunku~\ref{rys:uml}.
+
+\figscreen{uml.png}{0.95}{Diagram UML klas modelu aplikacji.}{rys:uml}
+
+\section{Mechanizm logowania i autoryzacji}
+\label{sec:logowanie}
+
+Hasła nie są przechowywane jawnie - zapisywany jest ich skrót SHA-256 w postaci szesnastkowej.
+Podczas logowania wyznaczany jest skrót wpisanego hasła i porównywany ze skrótem w bazie
+(listing~\ref{lst:hash}). Autoryzacja oparta jest na roli użytkownika: po zalogowaniu obiekt
+użytkownika trafia do okna głównego, które buduje inny zestaw modułów dla nauczyciela, a inny dla
+ucznia.
+
+\begin{lstlisting}[caption={Haszowanie hasła i logowanie.}, label=lst:hash]
+public static string Hash(string password)
+{
+    byte[] bytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+    return Convert.ToHexString(bytes).ToLowerInvariant();
+}
+
+// logowanie - porownanie skrotu wpisanego hasla ze skrotem w bazie
+var hash = PasswordHash.Hash(password);
+var user = ctx.Users.FirstOrDefault(
+    x => x.Username == username && x.Password == hash);
+\end{lstlisting}
+
+\section{Realizacja operacji CRUD}
+\label{sec:crud}
+
+Operacje tworzenia, odczytu, modyfikacji i usuwania (CRUD) realizowane są przez repozytorium
+\texttt{DbRepository} z użyciem Entity Framework Core. Przykładem nietrywialnej operacji jest
+usuwanie testu (listing~\ref{lst:delete}). Ponieważ odpowiedzi uczniów są powiązane z pytaniami
+kluczem obcym w trybie ograniczającym (\texttt{Restrict}), bezpośrednie usunięcie testu mogłoby
+naruszyć integralność. Dlatego najpierw usuwane są odpowiedzi i podejścia, a dopiero potem sam test -
+pozostałe dane (pytania, opcje, przypisania grup) znikają kaskadowo.
+
+\begin{lstlisting}[caption={Bezpieczne usuwanie testu (zachowanie integralności).}, label=lst:delete]
+public static void DeleteTest(int id)
+{
+    using var ctx = Ctx();
+    var quiz = ctx.Quizzes
+        .Include(q => q.Attempts).ThenInclude(a => a.Answers)
+        .FirstOrDefault(q => q.Id == id);
+    if (quiz == null) return;
+
+    foreach (var a in quiz.Attempts)
+        ctx.StudentAnswers.RemoveRange(a.Answers);
+    ctx.QuizAttempts.RemoveRange(quiz.Attempts);
+    ctx.Quizzes.Remove(quiz);
+    ctx.SaveChanges();
+}
+\end{lstlisting}
+
+\section{Logika oceniania}
+\label{sec:logikaOceniania}
+
+Najważniejszym elementem logiki jest serwis oceniania. Metoda \texttt{Grade} wyznacza liczbę punktów za pojedyncze
+pytanie (listing~\ref{lst:grade}). Pierwszeństwo ma ręcznie przyznana ocena - dotyczy to każdego
+typu pytania, dzięki czemu nauczyciel może nadpisać również automatyczną ocenę pytania zamkniętego.
+W przypadku braku ręcznej oceny pytania zamknięte są liczone automatycznie, przy czym w pytaniach
+wielokrotnego wyboru przyznawane są punkty częściowe (proporcjonalnie do liczby trafień
+pomniejszonych o błędne wskazania). Pytania otwarte bez ręcznej oceny oczekują na nauczyciela.
+Cały wynik podejścia przeliczany jest następnie metodą \texttt{Recompute}, a przy wielu podejściach
+do oceny brany jest najlepszy wynik ucznia.
+
+\begin{lstlisting}[caption={Ocenianie pojedynczego pytania (GradingService).}, label=lst:grade]
+public static (int pts, bool ok, bool partial, bool pending) Grade(
+    Question q, object? ans, IReadOnlyDictionary<int, int>? manual = null)
+{
+    // reczne nadpisanie punktow ma pierwszenstwo (kazdy typ pytania)
+    if (manual != null && manual.TryGetValue(q.Id, out var mo))
+        return (mo, mo >= q.Points, mo > 0 && mo < q.Points, false);
+
+    switch (q.Type)
+    {
+        case QuestionType.Multi:
+            var chosen = AsIndices(ans);
+            int good = chosen.Count(i => q.Correct.Contains(i));
+            int bad  = chosen.Count(i => !q.Correct.Contains(i));
+            double raw = q.Correct.Count == 0 ? 0
+                         : Math.Max(0, good - bad) / (double)q.Correct.Count;
+            int pts = (int)Math.Round(raw * q.Points);
+            return (pts, pts == q.Points && q.Points > 0,
+                    pts > 0 && pts < q.Points, false);
+        // ... pytania jednokrotnego wyboru i otwarte
+    }
+    return (0, false, false, false);
+}
+\end{lstlisting}
+
+\section{Organizacja nawigacji}
+\label{sec:nawigacja}
+
+Główne okno (\texttt{MainWindow}) pełni rolę powłoki: zawiera stały panel boczny z nawigacją oraz
+obszar treści, w którym wyświetlane są kolejne ekrany modułów. Po kliknięciu pozycji menu tworzona
+jest odpowiednia strona i wstawiana do obszaru treści. Ekran rozwiązywania testu oraz ekran wyniku
+wyświetlane są w trybie pełnoekranowym (bez panelu bocznego), aby skupić uwagę ucznia na zadaniu.
+
+\section{Interfejs użytkownika i stylizacja}
+\label{sec:stylizacja}
+
+Wygląd aplikacji zdefiniowano w słowniku zasobów \texttt{Theme.xaml}, obejmującym paletę kolorów oraz
+style przycisków, pól i innych kontrolek. Powtarzalne elementy interfejsu (karty, znaczniki statusu,
+wykresy kołowe i słupkowe, awatary) budowane są przez wspólne metody pomocnicze, dzięki czemu ekrany
+wyglądają jednolicie. Okno główne otwiera się zmaksymalizowane, a układ oparty na siatkach dopasowuje
+się do rozmiaru okna.

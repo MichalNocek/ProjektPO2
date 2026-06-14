@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.31)  14 JUN 2026 13:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.31)  14 JUN 2026 18:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1045,8 +1045,13 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (praca.aux
 Package babel Info: 'polish' activates 'polish' shorthands.
 (babel)             Reported on input line 9.
- (chapters/streszczenie.aux) (chapters/zalozenia.aux)
-(chapters/struktura.aux) (chapters/harmonogram.aux) (chapters/prezentacja.aux)
+ (chapters/streszczenie.aux) (chapters/wprowadzenie.aux)
+(chapters/wymagania.aux) (chapters/architektura.aux) (chapters/technologie.aux)
+(chapters/baza.aux) (chapters/implementacja.aux) (chapters/prezentacja.aux
+
+LaTeX Warning: Label `sec:logowanie' multiply defined.
+
+) (chapters/harmonogram.aux) (chapters/uruchomienie.aux)
 (chapters/podsumowanie.aux))
 \openout1 = `praca.aux'.
 
@@ -1156,7 +1161,7 @@ Package hyperref Info: Link coloring OFF on input line 171.
 \openout4 = `praca.out'.
 
 \c@lstlisting=\count399
-<figures/LogoURWydzial.png, id=120, 1927.2pt x 648.4225pt>
+<figures/LogoURWydzial.png, id=271, 1927.2pt x 648.4225pt>
 File: figures/LogoURWydzial.png Graphic file (type png)
 <use figures/LogoURWydzial.png>
 Package pdftex.def Info: figures/LogoURWydzial.png  used on input line 178.
@@ -1203,172 +1208,219 @@ been already used, duplicate ignored
 l.178 \titlepages
                   [1
 
-] (praca.toc)
-\tf@toc=\write5
-\openout5 = `praca.toc'.
+] (praca.toc
+Underfull \vbox (badness 1158) has occurred while \output is active []
+
+
+Underfull \vbox (badness 1158) has occurred while \output is active []
 
  [5
 
 
-]
+])
+\tf@toc=\write5
+\openout5 = `praca.toc'.
+
+Package babel Info: 'polish' activates 'polish' shorthands.
+(babel)             Reported on input line 200.
+
+[6]
 \openout2 = `chapters/streszczenie.aux'.
 
  (chapters/streszczenie.tex
 Rozdzia\l  1.
-) [6
+) [7
 
 
 
 ]
-\openout2 = `chapters/zalozenia.aux'.
+\openout2 = `chapters/wprowadzenie.aux'.
 
- (chapters/zalozenia.tex
+ (chapters/wprowadzenie.tex
 Rozdzia\l  2.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-3.
+5.
 (C:\Users\MichaÅ‚\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-[7
+[8
 
 
 
 
-]
-Package babel Info: 'polish' activates 'polish' shorthands.
-(babel)             Reported on input line 115.
- [8]) [9]
-\openout2 = `chapters/struktura.aux'.
+]) [9]
+\openout2 = `chapters/wymagania.aux'.
 
- (chapters/struktura.tex
+ (chapters/wymagania.tex
 Rozdzia\l  3.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 18
-.
-(C:\Users\MichaÅ‚\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Underfull \hbox (badness 1320) in paragraph at lines 37--45
-[]\T1/ptm/m/n/10 Do bu-dowy in-ter-fejsu gra-ficz-nego wy-ko-rzy-stano tech-no-
-lo-gi¦ \T1/ptm/m/it/10 Win-dows Pre-sen-ta-tion Fo-un-da-tion
- []
-
 [10
 
 
 
 
+]) [11]
+\openout2 = `chapters/architektura.aux'.
+
+ (chapters/architektura.tex
+Rozdzia\l  4.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 11
+.
+(C:\Users\MichaÅ‚\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 34.
+
+[12
+
+
+
+
+]) [13]
+\openout2 = `chapters/technologie.aux'.
+
+ (chapters/technologie.tex
+Rozdzia\l  5.
+) [14
+
+
+
+
 ]
-<figures/erd.png, id=210, 872.50969pt x 679.78969pt>
+\openout2 = `chapters/baza.aux'.
+
+ (chapters/baza.tex
+Rozdzia\l  6.
+<figures/erd.png, id=441, 872.50969pt x 679.78969pt>
 File: figures/erd.png Graphic file (type png)
 <use figures/erd.png>
-Package pdftex.def Info: figures/erd.png  used on input line 86.
+Package pdftex.def Info: figures/erd.png  used on input line 42.
 (pdftex.def)             Requested size: 405.44655pt x 315.89148pt.
- [11 <./figures/erd.png>]
-Underfull \hbox (badness 4144) in paragraph at lines 122--129
-\T1/ptm/m/n/10 wy-boru te-stów da-nego na-uczy-ciela (\T1/pcr/m/n/10 GetTestsFo
-rTeacher\T1/ptm/m/n/10 ), zmiany wi-docz-no-±ci te-stu
- []
-
-<figures/uml.png, id=218, 792.9625pt x 1419.3025pt>
-File: figures/uml.png Graphic file (type png)
-<use figures/uml.png>
-Package pdftex.def Info: figures/uml.png  used on input line 149.
-(pdftex.def)             Requested size: 321.97083pt x 576.28703pt.
-[12] [13 <./figures/uml.png (PNG copy)>]
-Underfull \hbox (badness 1939) in paragraph at lines 172--176
-[]\T1/ptm/m/n/10 Schemat bazy da-nych za-kªa-dany jest au-to-ma-tycz-nie. Przy 
-star-cie apli-ka-cja wy-wo-ªuje me-tod¦
- []
-
-) [14]
-\openout2 = `chapters/harmonogram.aux'.
-
- (chapters/harmonogram.tex
-Rozdzia\l  4.
 [15
 
 
 
 
-]) [16]
+]
+Underfull \hbox (badness 2302) in paragraph at lines 73--78
+[]\T1/ptm/m/n/10 Zmiany sche-matu bazy s¡ za-pi-sane w po-staci mi-gra-cji En-t
+ity Fra-me-work Core w ka-ta-logu
+ []
+
+[16 <./figures/erd.png>]) [17]
+\openout2 = `chapters/implementacja.aux'.
+
+ (chapters/implementacja.tex
+Rozdzia\l  7.
+<figures/uml.png, id=458, 792.9625pt x 1419.3025pt>
+File: figures/uml.png Graphic file (type png)
+<use figures/uml.png>
+Package pdftex.def Info: figures/uml.png  used on input line 21.
+(pdftex.def)             Requested size: 321.97083pt x 576.28703pt.
+[18
+
+
+
+
+] [19 <./figures/uml.png (PNG copy)>] [20]) [21]
 \openout2 = `chapters/prezentacja.aux'.
 
  (chapters/prezentacja.tex
-Rozdzia\l  5.
-<figures/ekran_logowanie.png, id=249, 928.97063pt x 652.68843pt>
+Rozdzia\l  8.
+<figures/ekran_logowanie.png, id=530, 928.97063pt x 652.68843pt>
 File: figures/ekran_logowanie.png Graphic file (type png)
 <use figures/ekran_logowanie.png>
-Package pdftex.def Info: figures/ekran_logowanie.png  used on input line 27.
+Package pdftex.def Info: figures/ekran_logowanie.png  used on input line 29.
 (pdftex.def)             Requested size: 320.09831pt x 224.8989pt.
-[17
+[22
 
 
 
 
  <./figures/ekran_logowanie.png>]
-<figures/ekran_pulpit.png, id=258, 1445.4pt x 858.20625pt>
+<figures/ekran_pulpit.png, id=538, 1445.4pt x 858.20625pt>
 File: figures/ekran_pulpit.png Graphic file (type png)
 <use figures/ekran_pulpit.png>
-Package pdftex.def Info: figures/ekran_pulpit.png  used on input line 44.
+Package pdftex.def Info: figures/ekran_pulpit.png  used on input line 46.
 (pdftex.def)             Requested size: 405.43706pt x 240.72826pt.
-<figures/ekran_edytor.png, id=260, 1445.4pt x 858.20625pt>
+<figures/ekran_edytor.png, id=540, 1445.4pt x 858.20625pt>
 File: figures/ekran_edytor.png Graphic file (type png)
 <use figures/ekran_edytor.png>
-Package pdftex.def Info: figures/ekran_edytor.png  used on input line 64.
+Package pdftex.def Info: figures/ekran_edytor.png  used on input line 66.
 (pdftex.def)             Requested size: 405.43706pt x 240.72826pt.
-<figures/ekran_testy.png, id=261, 1445.4pt x 858.20625pt>
+<figures/ekran_testy.png, id=541, 1445.4pt x 858.20625pt>
 File: figures/ekran_testy.png Graphic file (type png)
 <use figures/ekran_testy.png>
-Package pdftex.def Info: figures/ekran_testy.png  used on input line 66.
+Package pdftex.def Info: figures/ekran_testy.png  used on input line 68.
 (pdftex.def)             Requested size: 405.43706pt x 240.72826pt.
- [18 <./figures/ekran_pulpit.png>] [19 <./figures/ekran_edytor.png> <./figures/
+ [23 <./figures/ekran_pulpit.png>] [24 <./figures/ekran_edytor.png> <./figures/
 ekran_testy.png>]
-<figures/ekran_ocenianie.png, id=276, 1156.32pt x 686.565pt>
+<figures/ekran_ocenianie.png, id=557, 1156.32pt x 686.565pt>
 File: figures/ekran_ocenianie.png Graphic file (type png)
 <use figures/ekran_ocenianie.png>
-Package pdftex.def Info: figures/ekran_ocenianie.png  used on input line 85.
+Package pdftex.def Info: figures/ekran_ocenianie.png  used on input line 87.
 (pdftex.def)             Requested size: 384.10988pt x 228.06523pt.
-<figures/ekran_grupy.png, id=278, 1445.4pt x 858.20625pt>
+<figures/ekran_grupy.png, id=559, 1445.4pt x 858.20625pt>
 File: figures/ekran_grupy.png Graphic file (type png)
 <use figures/ekran_grupy.png>
-Package pdftex.def Info: figures/ekran_grupy.png  used on input line 96.
+Package pdftex.def Info: figures/ekran_grupy.png  used on input line 98.
 (pdftex.def)             Requested size: 405.43706pt x 240.72826pt.
- [20 <./figures/ekran_ocenianie.png>]
-<figures/ekran_statystyki.png, id=288, 1156.32pt x 686.565pt>
+ [25 <./figures/ekran_ocenianie.png>]
+<figures/ekran_statystyki.png, id=568, 1156.32pt x 686.565pt>
 File: figures/ekran_statystyki.png Graphic file (type png)
 <use figures/ekran_statystyki.png>
-Package pdftex.def Info: figures/ekran_statystyki.png  used on input line 117.
+Package pdftex.def Info: figures/ekran_statystyki.png  used on input line 119.
 (pdftex.def)             Requested size: 405.44147pt x 240.73087pt.
- [21 <./figures/ekran_grupy.png>]
-<figures/ekran_testy_ucznia.png, id=296, 1156.32pt x 686.565pt>
+ [26 <./figures/ekran_grupy.png>]
+<figures/ekran_testy_ucznia.png, id=577, 1156.32pt x 686.565pt>
 File: figures/ekran_testy_ucznia.png Graphic file (type png)
 <use figures/ekran_testy_ucznia.png>
-Package pdftex.def Info: figures/ekran_testy_ucznia.png  used on input line 131
+Package pdftex.def Info: figures/ekran_testy_ucznia.png  used on input line 133
 .
 (pdftex.def)             Requested size: 405.44147pt x 240.73087pt.
- [22 <./figures/ekran_statystyki.png> <./figures/ekran_testy_ucznia.png>]
-<figures/ekran_rozwiazywanie.png, id=305, 1445.4pt x 858.20625pt>
+ [27 <./figures/ekran_statystyki.png> <./figures/ekran_testy_ucznia.png>]
+<figures/ekran_rozwiazywanie.png, id=586, 1445.4pt x 858.20625pt>
 File: figures/ekran_rozwiazywanie.png Graphic file (type png)
 <use figures/ekran_rozwiazywanie.png>
 Package pdftex.def Info: figures/ekran_rozwiazywanie.png  used on input line 14
-3.
+5.
 (pdftex.def)             Requested size: 405.43706pt x 240.72826pt.
-<figures/wynik_testu.png, id=307, 1156.32pt x 686.565pt>
+<figures/wynik_testu.png, id=588, 1156.32pt x 686.565pt>
 File: figures/wynik_testu.png Graphic file (type png)
 <use figures/wynik_testu.png>
-Package pdftex.def Info: figures/wynik_testu.png  used on input line 154.
+Package pdftex.def Info: figures/wynik_testu.png  used on input line 156.
 (pdftex.def)             Requested size: 405.44147pt x 240.73087pt.
-) [23 <./figures/ekran_rozwiazywanie.png>] [24 <./figures/wynik_testu.png>]
+) [28 <./figures/ekran_rozwiazywanie.png>] [29 <./figures/wynik_testu.png>]
+\openout2 = `chapters/harmonogram.aux'.
+
+ (chapters/harmonogram.tex
+Rozdzia\l  9.
+[30
+
+
+
+
+]) [31]
+\openout2 = `chapters/uruchomienie.aux'.
+
+ (chapters/uruchomienie.tex
+Rozdzia\l  10.
+) [32
+
+
+
+
+]
 \openout2 = `chapters/podsumowanie.aux'.
 
  (chapters/podsumowanie.tex
-Rozdzia\l  6.
-) [25
+Rozdzia\l  11.
+[33
 
 
 
 
-] [26] (praca.bbl) [27
+]) [34] (praca.bbl) [35
 
 
 
@@ -1377,33 +1429,46 @@ Rozdzia\l  6.
 \tf@lof=\write6
 \openout6 = `praca.lof'.
 
- [28
+ [36
 
 ] (praca.lot)
 \tf@lot=\write7
 \openout7 = `praca.lot'.
 
- [29
+ [37
 
-] (praca.aux
-(chapters/streszczenie.aux) (chapters/zalozenia.aux) (chapters/struktura.aux)
-(chapters/harmonogram.aux) (chapters/prezentacja.aux)
+] (praca.lol)
+\tf@lol=\write8
+\openout8 = `praca.lol'.
+
+
+[38
+
+
+] (praca.aux (chapters/streszczenie.aux) (chapters/wprowadzenie.aux)
+(chapters/wymagania.aux) (chapters/architektura.aux) (chapters/technologie.aux)
+(chapters/baza.aux) (chapters/implementacja.aux) (chapters/prezentacja.aux)
+(chapters/harmonogram.aux) (chapters/uruchomienie.aux)
 (chapters/podsumowanie.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `praca.out' has not changed.
-(rerunfilecheck)             Checksum: 79D125E2A0DB0D26FFFF77E29E7F0E9D;5588.
+(rerunfilecheck)             Checksum: 9054CE3E9A1EC2B2CECA55EBA4102353;12799.
  ) 
 Here is how much of TeX's memory you used:
- 33230 strings out of 467871
- 670388 string characters out of 5417408
- 1032395 words of memory out of 5000000
- 61467 multiletter control sequences out of 15000+600000
- 688789 words of font info for 93 fonts, out of 8000000 for 9000
+ 33847 strings out of 467871
+ 680788 string characters out of 5417408
+ 1200249 words of memory out of 5000000
+ 61922 multiletter control sequences out of 15000+600000
+ 694935 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 88i,12n,98p,388b,1309s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 88i,12n,98p,388b,1314s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8
 a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/u
 crr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helve
@@ -1414,9 +1479,9 @@ helvetic/uhvr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/urw/times/utmr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/f
 onts/type1/urw/times/utmr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on praca.pdf (28 pages, 1526734 bytes).
+Output written on praca.pdf (37 pages, 1589297 bytes).
 PDF statistics:
- 420 PDF objects out of 1000 (max. 8388607)
- 77 named destinations out of 1000 (max. 500000)
- 310 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 755 PDF objects out of 1000 (max. 8388607)
+ 198 named destinations out of 1000 (max. 500000)
+ 614 words of extra memory for PDF output out of 10000 (max. 10000000)
 

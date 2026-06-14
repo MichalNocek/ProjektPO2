@@ -1,0 +1,92 @@
+\chapter{Projekt bazy danych}
+\label{cha:baza}
+
+\section{Opis modelu danych}
+\label{sec:modelDanych}
+
+Wszystkie informacje o użytkownikach, grupach, testach, pytaniach, podejściach i odpowiedziach są
+przechowywane w relacyjnej bazie danych PostgreSQL. Najważniejsze tabele przedstawiono
+w tabeli~\ref{tab:tabele}. Można je podzielić na trzy obszary: konta użytkowników i grupy, testy
+wraz z pytaniami oraz podejścia uczniów wraz z ich odpowiedziami.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Najważniejsze tabele bazy danych aplikacji.}
+  \label{tab:tabele}
+  \begin{tabularx}{\linewidth}{>{\bfseries}l X}
+    \toprule
+    Tabela & Przeznaczenie \\
+    \midrule
+    Users & Konta użytkowników (wspólna tabela nauczycieli i uczniów, rozróżnianych
+            dyskryminatorem); login, skrót hasła, imię i nazwisko. \\
+    Groups & Grupy uczniów (nazwa, opis). \\
+    StudentGroups & Tabela łącząca uczniów z grupami (relacja wiele-do-wielu). \\
+    Quizzes & Testy (nazwa, przedmiot, limit czasu, próg, liczba podejść, widoczność). \\
+    Questions & Pytania (wspólna tabela pytań zamkniętych i otwartych); treść, punkty, kolejność. \\
+    AnswerOptions & Warianty odpowiedzi pytań zamkniętych; treść, flaga poprawności. \\
+    TestGroups & Tabela łącząca testy z grupami (relacja wiele-do-wielu). \\
+    QuizAttempts & Podejścia uczniów do testów; wynik, procent, status, czas, data. \\
+    StudentAnswers & Odpowiedzi ucznia (wspólna tabela odpowiedzi zamkniętych i otwartych). \\
+    SelectedOptions & Warianty zaznaczone przez ucznia w odpowiedzi zamkniętej. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Diagram ERD}
+\label{sec:erd}
+
+Centralnymi tabelami modelu są \texttt{Quizzes} (testy) oraz \texttt{Users} (użytkownicy). Test
+posiada pytania i podejścia, a podejście ucznia gromadzi jego odpowiedzi. Pełny schemat powiązań
+przedstawia diagram ERD na rysunku~\ref{rys:erd}.
+
+\figscreen{erd.png}{0.95}{Diagram ERD bazy danych aplikacji.}{rys:erd}
+
+\section{Opis relacji i kluczy}
+\label{sec:relacje}
+
+Każda tabela posiada klucz główny typu całkowitego (\texttt{IDENTITY}). Główne relacje:
+
+\begin{itemize}
+  \item \texttt{Quizzes} - \texttt{Questions} oraz \texttt{Quizzes} - \texttt{QuizAttempts}: relacje
+        jeden-do-wielu (test ma wiele pytań i wiele podejść).
+  \item \texttt{ClosedQuestion} - \texttt{AnswerOptions}: pytanie zamknięte ma wiele wariantów
+        odpowiedzi.
+  \item \texttt{QuizAttempts} - \texttt{StudentAnswers} - \texttt{SelectedOptions}: podejście ma wiele
+        odpowiedzi, a odpowiedź zamknięta - wiele zaznaczonych wariantów.
+  \item \texttt{StudentGroups} łączy uczniów i grupy w relacji wiele-do-wielu (klucz złożony
+        \texttt{StudentId} + \texttt{GroupId}); analogicznie \texttt{TestGroups} łączy testy z grupami.
+\end{itemize}
+
+\section{Normalizacja}
+\label{sec:normalizacja}
+
+Baza danych spełnia trzecią postać normalną (3NF) - każda tabela przechowuje dane dotyczące jednego
+pojęcia, wartości w kolumnach są atomowe, a powtarzające się informacje zostały zastąpione kluczami
+obcymi. Relacje wiele-do-wielu (uczeń-grupa oraz test-grupa) rozwiązano za pomocą tabel łączących
+(\texttt{StudentGroups}, \texttt{TestGroups}), co eliminuje powielanie danych. Dziedziczenie klas
+odwzorowano strategią Table-per-Hierarchy, w której cała hierarchia mieści się w jednej tabeli,
+a typ rekordu wskazuje kolumna dyskryminatora.
+
+\section{Migracje bazy danych}
+\label{sec:migracje}
+
+Zmiany schematu bazy są zapisane w postaci migracji Entity Framework Core w katalogu
+\texttt{Migrations}. Przy starcie aplikacja wywołuje metodę \texttt{Database.Migrate()}, która tworzy
+bazę i nakłada wszystkie migracje. Kolejne migracje wprowadzały m.in. obsługę liczby podejść, zmianę
+typu daty oddania na pełny znacznik czasu, unikalny indeks loginu oraz haszowanie haseł istniejących
+kont. Dzięki migracjom schemat jest wersjonowany, a baza odtwarzalna bez ręcznego pisania skryptów SQL.
+
+\section{Mechanizmy zapewniające integralność danych}
+\label{sec:integralnosc}
+
+\begin{itemize}
+  \item \textbf{Integralność referencyjna} - klucze obce na wszystkich powiązaniach. Tam, gdzie dane
+        podrzędne nie mają sensu bez nadrzędnych, zastosowano usuwanie kaskadowe (usunięcie testu
+        usuwa jego pytania i podejścia); tam, gdzie usunięcie mogłoby naruszyć już oddane odpowiedzi,
+        zastosowano regułę ograniczającą, a operacje usuwania wykonywane są we właściwej kolejności
+        (najpierw rekordy zależne).
+  \item \textbf{Unikalność} - unikalny indeks na loginie użytkownika gwarantuje brak dwóch kont o tej
+        samej nazwie.
+  \item \textbf{Spójność dziedzinowa} - walidacja po stronie aplikacji nie dopuszcza do zapisu testu
+        niekompletnego (np. pytania bez poprawnej odpowiedzi).
+\end{itemize}
