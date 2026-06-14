@@ -16,7 +16,25 @@ Logika aplikacji skupiona jest w warstwie usług. Kluczowe klasy to:
   \item \texttt{Safe} - wspólna obsługa wyjątków.
 \end{itemize}
 
-Wzajemne powiązania najważniejszych klas modelu przedstawia diagram UML na rysunku~\ref{rys:uml}.
+W modelu danych szeroko wykorzystano dziedziczenie - występują trzy hierarchie klas abstrakcyjnych:
+
+\begin{itemize}
+  \item abstrakcyjna klasa \texttt{User} przechowuje wspólne dane konta (login, skrót hasła, imię
+        i nazwisko) oraz metodę abstrakcyjną \texttt{GetRoleLabel}; dziedziczą po niej \texttt{Teacher}
+        oraz \texttt{Student},
+  \item abstrakcyjna klasa \texttt{Question} (treść, punkty, kolejność, właściwość
+        \texttt{RequiresManualGrading}) jest bazą dla \texttt{ClosedQuestion} - pytania zamkniętego
+        z wariantami odpowiedzi - oraz \texttt{OpenQuestion} - pytania otwartego z odpowiedzią
+        wzorcową,
+  \item abstrakcyjna klasa \texttt{StudentAnswer} jest bazą dla \texttt{ClosedAnswer} (przechowuje
+        zaznaczone warianty) i \texttt{OpenAnswer} (przechowuje wpisany tekst).
+\end{itemize}
+
+Dziedziczenie pozwala m.in. trzymać w jednej kolekcji pytania lub odpowiedzi obu typów i obsługiwać
+je polimorficznie. Dodatkowo klasa \texttt{Quiz} implementuje interfejs \texttt{IPublishable},
+ujednolicający sterowanie widocznością testu. Wszystkie trzy hierarchie są mapowane na bazę danych
+strategią Table-per-Hierarchy. Wzajemne powiązania najważniejszych klas modelu przedstawia diagram
+UML na rysunku~\ref{rys:uml}.
 
 \figscreen{uml.png}{0.95}{Diagram UML klas modelu aplikacji.}{rys:uml}
 

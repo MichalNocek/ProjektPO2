@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.31)  14 JUN 2026 18:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.5.31)  14 JUN 2026 19:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1312,10 +1312,22 @@ ity Fra-me-work Core w ka-ta-logu
 
  (chapters/implementacja.tex
 Rozdzia\l  7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--29
+[]\T1/ptm/m/n/10 abstrakcyjna klasa \T1/pcr/m/n/10 Question \T1/ptm/m/n/10 (tre
+±¢, punkty, ko-lej-no±¢, wªa-±ci-wo±¢
+ []
+
+
+Underfull \hbox (badness 2689) in paragraph at lines 25--29
+\T1/pcr/m/n/10 RequiresManualGrading\T1/ptm/m/n/10 ) jest baz¡ dla \T1/pcr/m/n/
+10 ClosedQuestion \T1/ptm/m/n/10 - py-ta-nia za-mkni¦-tego z
+ []
+
 <figures/uml.png, id=458, 792.9625pt x 1419.3025pt>
 File: figures/uml.png Graphic file (type png)
 <use figures/uml.png>
-Package pdftex.def Info: figures/uml.png  used on input line 21.
+Package pdftex.def Info: figures/uml.png  used on input line 39.
 (pdftex.def)             Requested size: 321.97083pt x 576.28703pt.
 [18
 
@@ -1464,7 +1476,7 @@ Package rerunfilecheck Info: File `praca.out' has not changed.
 Here is how much of TeX's memory you used:
  33847 strings out of 467871
  680788 string characters out of 5417408
- 1200249 words of memory out of 5000000
+ 1199249 words of memory out of 5000000
  61922 multiletter control sequences out of 15000+600000
  694935 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1479,7 +1491,7 @@ helvetic/uhvr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/urw/times/utmr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX/f
 onts/type1/urw/times/utmr8a.pfb><C:/Users/MichaÅ‚/AppData/Local/Programs/MiKTeX
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on praca.pdf (37 pages, 1589297 bytes).
+Output written on praca.pdf (37 pages, 1590200 bytes).
 PDF statistics:
  755 PDF objects out of 1000 (max. 8388607)
  198 named destinations out of 1000 (max. 500000)
