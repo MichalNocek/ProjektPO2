@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Micha\u0142\\Desktop\\REPO PO2\\ProjektPO2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C22EEFF8-AC47-E9A7-CD6A-9A6987AE953D}|ProjektPO2\\ProjektPO2.csproj|c:\\users\\micha\u0142\\desktop\\repo po2\\projektpo2\\projektpo2\\models\\closedquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C22EEFF8-AC47-E9A7-CD6A-9A6987AE953D}|ProjektPO2\\ProjektPO2.csproj|solutionrelative:projektpo2\\models\\closedquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C22EEFF8-AC47-E9A7-CD6A-9A6987AE953D}|ProjektPO2\\ProjektPO2.csproj|c:\\users\\micha\u0142\\desktop\\repo po2\\projektpo2\\projektpo2\\views\\gradingpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C22EEFF8-AC47-E9A7-CD6A-9A6987AE953D}|ProjektPO2\\ProjektPO2.csproj|solutionrelative:projektpo2\\views\\gradingpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -35,6 +39,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ClosedQuestion.cs",
+              "DocumentMoniker": "C:\\Users\\Micha\u0142\\Desktop\\REPO PO2\\ProjektPO2\\ProjektPO2\\Models\\ClosedQuestion.cs",
+              "RelativeDocumentMoniker": "ProjektPO2\\Models\\ClosedQuestion.cs",
+              "ToolTip": "C:\\Users\\Micha\u0142\\Desktop\\REPO PO2\\ProjektPO2\\ProjektPO2\\Models\\ClosedQuestion.cs",
+              "RelativeToolTip": "ProjektPO2\\Models\\ClosedQuestion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-14T17:13:40.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "GradingPage.cs",
               "DocumentMoniker": "C:\\Users\\Micha\u0142\\Desktop\\REPO PO2\\ProjektPO2\\ProjektPO2\\Views\\GradingPage.cs",
               "RelativeDocumentMoniker": "ProjektPO2\\Views\\GradingPage.cs",
@@ -42,8 +59,7 @@
               "RelativeToolTip": "ProjektPO2\\Views\\GradingPage.cs",
               "ViewState": "AgIAAKAAAAAAAAAAAAAAAB0AAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-09T11:53:46.667Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-09T11:53:46.667Z"
             }
           ]
         }
