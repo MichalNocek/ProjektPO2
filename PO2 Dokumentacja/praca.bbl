@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+
+\bibitem{msdocsCSharp}
+Microsoft.
+\newblock Dokumentacja języka c\#.
+\newblock \url{https://learn.microsoft.com/dotnet/csharp/}, 2026.
+\newblock dostęp: 2026.
+
+\bibitem{msdocsEFCore}
+Microsoft.
+\newblock Entity framework core -- dokumentacja.
+\newblock \url{https://learn.microsoft.com/ef/core/}, 2026.
+\newblock dostęp: 2026.
+
+\bibitem{msdocsWPF}
+Microsoft.
+\newblock Windows presentation foundation (wpf) -- dokumentacja.
+\newblock \url{https://learn.microsoft.com/dotnet/desktop/wpf/}, 2026.
+\newblock dostęp: 2026.
+
+\bibitem{npgsql}
+{Npgsql Development Team}.
+\newblock Npgsql -- .net data provider for postgresql.
+\newblock \url{https://www.npgsql.org/}, 2026.
+\newblock dostęp: 2026.
+
+\bibitem{postgresql}
+{The PostgreSQL Global Development Group}.
+\newblock Postgresql documentation.
+\newblock \url{https://www.postgresql.org/docs/}, 2026.
+\newblock dostęp: 2026.
+
+\end{thebibliography}

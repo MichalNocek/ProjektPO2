@@ -1,0 +1,129 @@
+\chapter{Opis założeń projektu}
+\label{cha:zalozenia}
+
+Celem projektu jest stworzenie aplikacji desktopowej wspierającej nauczyciela w tworzeniu
+i przeprowadzaniu testów oraz ucznia w ich rozwiązywaniu. Tradycyjne, papierowe sprawdzanie wiedzy
+jest czasochłonne - wymaga ręcznego przygotowania arkuszy, ich powielenia, a następnie żmudnego
+sprawdzania i podliczania punktów. Dodatkowo gromadzenie wyników i analiza, które zagadnienia
+sprawiają uczniom najwięcej trudności, są w takim modelu praktycznie niemożliwe do przeprowadzenia
+na bieżąco.
+
+Aplikacja \emph{Testownik} rozwiązuje te problemy, przenosząc cały proces do jednego, spójnego
+narzędzia. Nauczyciel układa test w edytorze, przypisuje go wybranym grupom uczniów i otrzymuje
+automatycznie policzone wyniki wraz ze statystykami. Uczeń loguje się do systemu, rozwiązuje
+przypisane mu testy w ograniczonym czasie i natychmiast poznaje swój wynik. Realizacja projektu
+wymagała znajomości języka C\# i programowania obiektowego, technologii WPF do budowy interfejsu
+graficznego, biblioteki Entity Framework Core do obsługi bazy danych, projektowania relacyjnych baz
+danych PostgreSQL oraz systemu kontroli wersji Git.
+
+\section{Wymagania funkcjonalne projektu}
+\label{sec:wymaganiaFunkcjonalne}
+
+\begin{itemize}
+  \item \textbf{Zarządzanie kontami i rolami użytkowników}
+  \begin{itemize}
+    \item Użytkownik może samodzielnie zarejestrować nowe konto (imię, nazwisko, login, hasło),
+          wybierając przy rejestracji rolę - ucznia lub nauczyciela - oraz zalogować się do
+          systemu za pomocą loginu i hasła. Login jest unikalny w skali całego systemu.
+    \item System rozróżnia dwie role - nauczyciela i ucznia - i po zalogowaniu udostępnia każdej
+          z nich odrębny zestaw funkcji oraz inny układ nawigacji. Każdy nauczyciel zarządza
+          wyłącznie własnymi testami.
+  \end{itemize}
+
+  \item \textbf{Zarządzanie grupami uczniów}
+  \begin{itemize}
+    \item Nauczyciel może tworzyć nowe grupy (np. klasy) opatrzone nazwą i opisem.
+    \item Nauczyciel może przypisywać uczniów do grup oraz usuwać ich z grup; jeden uczeń może
+          należeć do wielu grup jednocześnie.
+    \item System wyświetla skład każdej grupy oraz przypisane do niej testy.
+  \end{itemize}
+
+  \item \textbf{Tworzenie i edycja testów}
+  \begin{itemize}
+    \item Nauczyciel tworzy testy złożone z pytań trzech typów: jednokrotnego wyboru, wielokrotnego
+          wyboru oraz pytań otwartych.
+    \item Dla każdego testu określa nazwę, przedmiot (wpisywany dowolnie lub wybierany z listy),
+          limit czasu, próg zaliczenia (w procentach), dozwoloną liczbę podejść oraz grupy, którym
+          test jest udostępniany.
+    \item Dla każdego pytania określa treść, liczbę punktów oraz - w pytaniach zamkniętych -
+          warianty odpowiedzi i poprawne odpowiedzi, a w pytaniach otwartych odpowiedź wzorcową.
+    \item Test ma stan widoczności - aktywny lub nieaktywny. Tylko aktywny test jest widoczny dla
+          uczniów; nowy test powstaje jako nieaktywny (szkic), a nauczyciel aktywuje go, gdy jest
+          gotowy do przeprowadzenia.
+    \item Test można edytować, duplikować oraz usuwać. Jeżeli test ma już rozwiązania uczniów,
+          edycja pytań jest blokowana (edytowalne pozostają ustawienia i grupy), aby nie naruszyć
+          powiązanych z pytaniami odpowiedzi.
+  \end{itemize}
+
+  \item \textbf{Rozwiązywanie testów przez ucznia}
+  \begin{itemize}
+    \item Uczeń widzi listę testów przypisanych do jego grup, z podziałem na rozwiązane
+          i nierozwiązane.
+    \item Podczas rozwiązywania działa licznik czasu; po jego upływie test jest automatycznie
+          kończony i oddawany.
+    \item Uczeń może swobodnie przechodzić między pytaniami, a przy oddawaniu testu z pominiętymi
+          pytaniami otrzymuje stosowne ostrzeżenie.
+    \item Liczba podejść do testu jest ograniczona wartością ustawioną przez nauczyciela.
+  \end{itemize}
+
+  \item \textbf{Ocenianie odpowiedzi}
+  \begin{itemize}
+    \item Pytania zamknięte są oceniane automatycznie - w pytaniach wielokrotnego wyboru
+          z uwzględnieniem punktów częściowych.
+    \item Pytania otwarte trafiają do kolejki oceniania, gdzie nauczyciel przyznaje punkty ręcznie,
+          po czym wynik ucznia jest automatycznie przeliczany.
+    \item Nauczyciel może ręcznie edytować ocenę dowolnego podejścia - przyznać lub nadpisać punkty
+          każdego pytania, także automatycznie ocenionego pytania zamkniętego; wynik jest wówczas
+          ponownie przeliczany.
+    \item Przy wielu podejściach jako ostateczny brany jest najlepszy wynik ucznia.
+  \end{itemize}
+
+  \item \textbf{Wykrywanie prób oszustwa}
+  \begin{itemize}
+    \item System wykrywa opuszczenie okna testu (np. przełączenie się na inną aplikację). Pierwsze
+          opuszczenie skutkuje ostrzeżeniem, a kolejne - automatycznym zakończeniem testu
+          z wynikiem 0\% i oznaczeniem próby oszustwa.
+  \end{itemize}
+
+  \item \textbf{Statystyki i eksport wyników}
+  \begin{itemize}
+    \item Nauczyciel ma dostęp do statystyk testu: zdawalności, średniego wyniku, najtrudniejszego
+          pytania oraz poprawności w rozbiciu na poszczególne pytania.
+    \item Wyniki testu można wyeksportować do pliku CSV.
+  \end{itemize}
+\end{itemize}
+
+\section{Wymagania niefunkcjonalne projektu}
+\label{sec:wymaganiaNiefunkcjonalne}
+
+System spełnia następujące kryteria jakościowe i ograniczenia:
+
+\begin{itemize}
+  \item \textbf{Użyteczność} - interfejs użytkownika jest spójny i intuicyjny. Nawigacja odbywa
+        się przez stały panel boczny, a poszczególne ekrany utrzymane są w jednolitej stylistyce
+        (karty, znaczniki statusu, wykresy), co ułatwia poruszanie się po aplikacji.
+
+  \item \textbf{Niezawodność i obsługa błędów} - operacje na bazie danych oraz operacje
+        wejścia/wyjścia są zabezpieczone wspólnym mechanizmem obsługi wyjątków. W razie błędu
+        użytkownik otrzymuje zrozumiały komunikat, a aplikacja nie ulega awarii. Dane wprowadzane
+        w formularzach (np. ustawienia testu, kompletność pytań) są walidowane przed zapisem.
+
+  \item \textbf{Wydajność} - kluczowe operacje, takie jak logowanie, wczytywanie testów czy zapis
+        wyniku, wykonują się w czasie nieprzekraczającym kilku sekund, a uruchomienie aplikacji
+        nie przekracza kilku sekund.
+
+  \item \textbf{Bezpieczeństwo} - dostęp do funkcji systemu jest możliwy wyłącznie po zalogowaniu,
+        a zakres uprawnień zależy od roli użytkownika. Hasła nie są przechowywane jawnie - zapisuje
+        się ich skrót (SHA-256). Unikalność loginów jest wymuszana na poziomie bazy danych.
+
+  \item \textbf{Środowisko} - aplikacja jest przeznaczona na system Windows z zainstalowanym
+        środowiskiem uruchomieniowym .NET oraz dostępem do serwera bazy danych PostgreSQL.
+
+  \item \textbf{Integralność danych} - spójność danych zapewniają klucze obce wraz z odpowiednio
+        dobranymi regułami usuwania (kaskadowymi i ograniczającymi) oraz mechanizm migracji
+        Entity Framework Core, wersjonujący schemat bazy danych.
+
+  \item \textbf{Utrzymywalność} - kod źródłowy został napisany zgodnie z zasadami programowania
+        obiektowego i podzielony na warstwy (model, dostęp do danych, logika/usługi, interfejs
+        użytkownika), co ułatwia jego rozwój i modyfikację.
+\end{itemize}

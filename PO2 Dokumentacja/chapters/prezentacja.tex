@@ -1,0 +1,154 @@
+\chapter{Prezentacja warstwy użytkowej projektu}
+\label{cha:prezentacja}
+
+W tym rozdziale przedstawiono wizualną stronę aplikacji za pomocą zrzutów ekranu, ilustrujących
+kluczowe widoki oraz interakcje użytkownika. Celem jest zaprezentowanie funkcjonalności systemu
+z perspektywy użytkownika końcowego - zarówno nauczyciela, jak i ucznia.
+
+% =====================================================================
+\section{Ekran logowania i rejestracji}
+\label{sec:logowanie}
+
+Pierwszym ekranem, z którym styka się użytkownik, jest ekran logowania, umożliwiający dostęp do
+systemu zarejestrowanym użytkownikom lub utworzenie nowego konta (ucznia lub nauczyciela). Interfejs
+przedstawiono na rysunku~\ref{rys:logowanie}. Składa się on z:
+
+\begin{itemize}
+  \item pola \emph{Login}, służącego do wprowadzenia nazwy użytkownika,
+  \item pola \emph{Hasło}, zapewniającego maskowanie wpisywanego hasła,
+  \item przycisku \emph{Zaloguj się}, który weryfikuje podane dane z bazą danych i w przypadku ich
+        poprawności przenosi użytkownika do odpowiedniego panelu (nauczyciela lub ucznia),
+  \item zakładki \emph{Rejestracja}, umożliwiającej utworzenie nowego konta po podaniu imienia,
+        nazwiska, loginu i hasła oraz wybraniu roli (ucznia lub nauczyciela),
+  \item komunikatów zwrotnych, informujących o błędnych danych logowania lub o problemach
+        z walidacją formularza rejestracji.
+\end{itemize}
+
+\figscreen{ekran_logowanie.png}{0.75}{Ekran logowania i rejestracji.}{rys:logowanie}
+
+% =====================================================================
+\section{Pulpit nauczyciela}
+\label{sec:pulpit}
+
+Po zalogowaniu na konto nauczyciela wyświetlany jest pulpit (rysunek~\ref{rys:pulpit}),
+stanowiący przegląd najważniejszych informacji. Zawiera on:
+
+\begin{itemize}
+  \item kafelki podsumowujące liczbę testów, uczniów i grup oraz średni wynik,
+  \item listę testów nauczyciela z szybkim przejściem do ich statystyk,
+  \item panel ostatnich wyników uczniów,
+  \item boczny panel nawigacji umożliwiający przejście do pozostałych modułów: testów, oceniania,
+        grup i statystyk.
+\end{itemize}
+
+\figscreen{ekran_pulpit.png}{0.95}{Pulpit nauczyciela.}{rys:pulpit}
+
+% =====================================================================
+\section{Lista testów i edytor testu}
+\label{sec:edytor}
+
+Widok \emph{Testy} prezentuje wszystkie testy nauczyciela w formie tabeli z informacjami o nazwie
+i statusie widoczności (aktywny/nieaktywny), przedmiocie, liczbie pytań, czasie, przypisanych grupach
+i liczbie podejść. Status można przełączać jednym kliknięciem, a przy każdym teście dostępne są
+akcje: statystyki, edycja, duplikowanie oraz usunięcie. Z poziomu tego widoku nauczyciel tworzy nowy
+test lub otwiera istniejący w edytorze (rysunek~\ref{rys:edytor}).
+
+Edytor testu pozwala określić ustawienia testu (nazwę, przedmiot wpisywany dowolnie lub wybierany
+z listy, limit czasu, próg zaliczenia, liczbę podejść, widoczność dla uczniów oraz przypisane grupy)
+i zbudować listę pytań. Dla każdego pytania można wybrać typ (jednokrotny wybór, wielokrotny wybór
+lub pytanie otwarte), wpisać treść, ustalić liczbę punktów oraz - w pytaniach zamkniętych -
+warianty odpowiedzi i poprawne odpowiedzi. Edytor waliduje kompletność testu przed zapisem (m.in.
+obecność poprawnej odpowiedzi i przypisanej grupy). Jeżeli test ma już rozwiązania, edycja pytań
+jest blokowana, o czym informuje stosowny komunikat.
+
+\figscreen{ekran_edytor.png}{0.95}{Lista testów nauczyciela ze statusem widoczności i akcjami.}{rys:listaTestow}
+
+\figscreen{ekran_testy.png}{0.95}{Edytor testu wraz z ustawieniami i listą pytań.}{rys:edytor}
+
+% =====================================================================
+\section{Ocenianie pytań otwartych}
+\label{sec:ocenianie}
+
+Moduł \emph{Ocenianie} (rysunek~\ref{rys:ocenianie}) gromadzi podejścia uczniów zawierające pytania
+otwarte oczekujące na ręczną ocenę. Dla każdego zgłoszenia nauczyciel widzi:
+
+\begin{itemize}
+  \item dane ucznia oraz nazwę testu i datę oddania,
+  \item treść pytania otwartego oraz odpowiedź wpisaną przez ucznia,
+  \item podpowiedź w postaci odpowiedzi wzorcowej,
+  \item pole do wpisania przyznanych punktów w dozwolonym zakresie (z walidacją zakresu).
+\end{itemize}
+
+Po przyznaniu punktów wszystkim pytaniom otwartym i zapisaniu oceny wynik ucznia jest automatycznie
+przeliczany, a zgłoszenie znika z kolejki.
+
+\figscreen{ekran_ocenianie.png}{0.9}{Ocenianie pytań otwartych.}{rys:ocenianie}
+
+% =====================================================================
+\section{Zarządzanie grupami}
+\label{sec:grupy}
+
+Widok \emph{Grupy} (rysunek~\ref{rys:grupy}) prezentuje grupy uczniów w formie kart. Każda karta
+zawiera nazwę i opis grupy, listę przypisanych uczniów oraz listę testów udostępnionych grupie.
+Przycisk zarządzania otwiera okno, w którym nauczyciel zaznacza uczniów należących do grupy.
+Dodatkowo, z poziomu tego widoku można utworzyć nową grupę.
+
+\figscreen{ekran_grupy.png}{0.95}{Widok zarządzania grupami uczniów.}{rys:grupy}
+
+% =====================================================================
+\section{Statystyki testu i eksport wyników}
+\label{sec:statystyki}
+
+Moduł \emph{Statystyki} (rysunek~\ref{rys:statystyki}) prezentuje analizę wyników wybranego testu.
+Zawiera:
+
+\begin{itemize}
+  \item wskaźnik zdawalności oraz liczbę uczniów, łączną liczbę podejść i średni wynik,
+  \item informację o najtrudniejszym pytaniu,
+  \item wykres poprawności w rozbiciu na poszczególne pytania,
+  \item tabelę z wszystkimi podejściami uczniów (najlepsze podejście oznaczone gwiazdką) wraz ze
+        statusem (zaliczony, niezaliczony, oczekujący na ocenę, próba oszustwa) oraz możliwością
+        ręcznej edycji oceny każdego podejścia,
+  \item przycisk eksportu wyników do pliku CSV.
+\end{itemize}
+
+Wskaźniki zbiorcze (zdawalność, średni wynik) liczone są z najlepszego podejścia każdego ucznia.
+
+\figscreen{ekran_statystyki.png}{0.95}{Statystyki wyników testu.}{rys:statystyki}
+
+% =====================================================================
+\section{Lista testów ucznia}
+\label{sec:testyUcznia}
+
+Po zalogowaniu na konto ucznia wyświetlana jest lista testów przypisanych do jego grup
+(rysunek~\ref{rys:testyUcznia}), z podziałem na testy do zrobienia oraz ukończone. Każdy test
+prezentowany jest w formie karty z informacją o przedmiocie, liczbie pytań, czasie, liczbie
+wykorzystanych podejść oraz - dla testów rozwiązanych - z osiągniętym wynikiem i możliwością jego
+podglądu lub ponownego podejścia (jeśli limit nie został wyczerpany, a test jest nadal aktywny).
+Uczeń widzi wyłącznie testy aktywne oraz te nieaktywne, które już rozwiązał (zachowując dostęp do
+swojego wyniku); po dezaktywacji testu niewykorzystane podejścia nie są już dostępne.
+
+\figscreen{ekran_testy_ucznia.png}{0.95}{Lista testów przypisanych uczniowi.}{rys:testyUcznia}
+
+% =====================================================================
+\section{Rozwiązywanie testu}
+\label{sec:rozwiazywanie}
+
+Ekran rozwiązywania testu (rysunek~\ref{rys:rozwiazywanie}) prezentuje pojedyncze pytanie wraz
+z wariantami odpowiedzi lub polem na odpowiedź otwartą. W górnej części znajduje się licznik czasu,
+a u dołu - nawigacja umożliwiająca przechodzenie między pytaniami oraz pasek postępu. Po upływie
+czasu test jest automatycznie kończony. Przy oddawaniu testu z pominiętymi pytaniami wyświetlane
+jest ostrzeżenie. Opuszczenie okna testu jest traktowane jako próba oszustwa.
+
+\figscreen{ekran_rozwiazywanie.png}{0.95}{Ekran rozwiązywania testu.}{rys:rozwiazywanie}
+
+% =====================================================================
+\section{Wynik testu}
+\label{sec:wynik}
+
+Po zakończeniu testu uczeń widzi ekran wyniku (rysunek~\ref{rys:wynik}), prezentujący osiągnięty
+procent, liczbę zdobytych punktów oraz status (zaliczony, niezaliczony lub oczekujący na ocenę
+pytań otwartych). Poniżej znajduje się szczegółowy przegląd odpowiedzi - dla każdego pytania
+wskazane są odpowiedzi poprawne oraz wybrane przez ucznia.
+
+\figscreen{wynik_testu.png}{0.95}{Ekran wyniku testu wraz z przeglądem odpowiedzi.}{rys:wynik}

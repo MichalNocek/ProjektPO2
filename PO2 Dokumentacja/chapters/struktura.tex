@@ -1,0 +1,190 @@
+\chapter{Opis struktury projektu}
+\label{cha:struktura}
+
+W tym rozdziale opisano, jak zbudowana jest aplikacja: jakie technologie zostały wykorzystane, jak
+zorganizowane są dane w bazie, jak wygląda hierarchia klas oraz jakie są minimalne wymagania
+potrzebne do uruchomienia programu.
+
+\section{Architektura i wykorzystane technologie}
+\label{sec:architektura}
+
+Aplikacja \emph{Testownik} to program desktopowy napisany w języku C\#~\cite{msdocsCSharp} na
+platformie .NET. Jego
+budowa jest modularna i opiera się na podziale na warstwy, co zapewnia czytelność kodu oraz
+oddzielenie logiki od interfejsu użytkownika i od sposobu przechowywania danych. Wyróżnić można
+cztery główne warstwy:
+
+\begin{itemize}
+  \item \textbf{Model (\texttt{Models})} - zbiór klas encji odwzorowujących rzeczywiste obiekty
+        dziedziny (użytkownik, grupa, test, pytanie, podejście, odpowiedź). Klasy te są mapowane na
+        tabele bazy danych przez Entity Framework Core.
+
+  \item \textbf{Dostęp do danych (\texttt{Data})} - konfiguracja kontekstu bazy danych
+        (\texttt{AppDbContext}), reguły mapowania relacji i dziedziczenia, mechanizm migracji oraz
+        klasa zasilająca bazę danymi początkowymi (\texttt{DbSeeder}).
+
+  \item \textbf{Logika i usługi (\texttt{Services})} - warstwa pośrednia zawierająca repozytorium
+        operacji bazodanowych (\texttt{DbRepository}), serwis oceniania (\texttt{GradingService}),
+        eksport do CSV (\texttt{CsvExporter}), haszowanie haseł (\texttt{PasswordHash}) oraz wspólną
+        obsługę wyjątków (\texttt{Safe}). W tej warstwie znajdują się także obiekty transferu danych
+        (DTO), oddzielające encje bazodanowe od warstwy widoku.
+
+  \item \textbf{Interfejs użytkownika (\texttt{Views})} - ekrany aplikacji zbudowane w technologii
+        WPF, odpowiedzialne za prezentację danych i obsługę interakcji z użytkownikiem. Widoki
+        komunikują się z bazą wyłącznie poprzez warstwę usług.
+\end{itemize}
+
+Do budowy interfejsu graficznego wykorzystano technologię \emph{Windows Presentation Foundation}
+(WPF)~\cite{msdocsWPF}, która pozwala na tworzenie nowoczesnych, stylizowanych okien aplikacji
+desktopowych. Warstwę dostępu do danych zrealizowano przy użyciu biblioteki \emph{Entity Framework
+Core}~\cite{msdocsEFCore} - nowoczesnego mechanizmu mapowania obiektowo-relacyjnego (ORM), który
+umożliwia operowanie na bazie danych za pomocą obiektów języka C\#, bez konieczności ręcznego
+pisania większości zapytań SQL. Jako silnik bazy danych zastosowano
+\emph{PostgreSQL}~\cite{postgresql}, łączony z aplikacją za pośrednictwem dostawcy
+\emph{Npgsql}~\cite{npgsql}. Do kontroli wersji kodu wykorzystano system Git.
+
+\section{Zarządzanie danymi - baza danych}
+\label{sec:bazaDanych}
+
+Wszystkie informacje o użytkownikach, grupach, testach, pytaniach, podejściach i odpowiedziach są
+przechowywane w relacyjnej bazie danych PostgreSQL. Schemat bazy jest tworzony i aktualizowany
+automatycznie za pomocą migracji Entity Framework Core, które wersjonują kolejne zmiany struktury.
+Najważniejsze tabele bazy danych przedstawiono w tabeli~\ref{tab:tabele}.
+
+\begin{table}[H]
+  \centering
+  \caption{Najważniejsze tabele bazy danych aplikacji.}
+  \label{tab:tabele}
+  \begin{tabularx}{\linewidth}{>{\bfseries}l X}
+    \toprule
+    Tabela & Przeznaczenie \\
+    \midrule
+    Users & Konta użytkowników (wspólna tabela nauczycieli i uczniów, rozróżnianych
+            dyskryminatorem); login, skrót hasła, imię i nazwisko. \\
+    Groups & Grupy uczniów (nazwa, opis). \\
+    StudentGroups & Tabela łącząca uczniów z grupami (relacja wiele-do-wielu). \\
+    Quizzes & Testy (nazwa, przedmiot, limit czasu, próg zaliczenia, liczba podejść). \\
+    Questions & Pytania (wspólna tabela pytań zamkniętych i otwartych); treść, punkty, kolejność. \\
+    AnswerOptions & Warianty odpowiedzi pytań zamkniętych; treść, flaga poprawności. \\
+    TestGroups & Tabela łącząca testy z grupami (relacja wiele-do-wielu). \\
+    QuizAttempts & Podejścia uczniów do testów; wynik, procent, status, czas, data. \\
+    StudentAnswers & Odpowiedzi ucznia (wspólna tabela odpowiedzi zamkniętych i otwartych). \\
+    SelectedOptions & Warianty zaznaczone przez ucznia w odpowiedzi zamkniętej. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Między tabelami zachodzą relacje jeden-do-wielu (np. test posiada wiele pytań, podejście posiada
+wiele odpowiedzi) oraz dwie relacje wiele-do-wielu, zrealizowane przez tabele łączące: uczeń może
+należeć do wielu grup, a grupa zrzeszać wielu uczniów (\texttt{StudentGroups}); analogicznie test
+może być przypisany do wielu grup, a grupa mieć wiele testów (\texttt{TestGroups}). Integralność
+danych zapewniają klucze obce wraz z regułami usuwania: kaskadowymi tam, gdzie dane podrzędne nie
+mają sensu bez nadrzędnych (usunięcie testu usuwa jego pytania i podejścia), oraz ograniczającymi
+tam, gdzie usunięcie mogłoby naruszyć już oddane odpowiedzi. Pełny schemat powiązań przedstawia
+diagram ERD na rysunku~\ref{rys:erd}.
+
+\figscreen{erd.png}{0.95}{Diagram ERD bazy danych aplikacji.}{rys:erd}
+
+\section{Hierarchia klas i kluczowe metody}
+\label{sec:hierarchiaKlas}
+
+Projekt w szerokim zakresie wykorzystuje mechanizmy programowania obiektowego, w szczególności
+dziedziczenie. W modelu danych występują trzy hierarchie klas, mapowane na bazę danych strategią
+\emph{Table-per-Hierarchy} (TPH), w której cała hierarchia jest zapisywana w jednej tabeli,
+a konkretny typ rozróżnia kolumna dyskryminatora.
+
+\begin{itemize}
+  \item \textbf{Hierarchia użytkowników} - abstrakcyjna klasa \texttt{User} przechowuje wspólne
+        dane (identyfikator, login, skrót hasła, imię i nazwisko) oraz definiuje metodę abstrakcyjną
+        \texttt{GetRoleLabel()}. Dziedziczą po niej klasy \texttt{Teacher} oraz \texttt{Student}.
+        Uczeń posiada dodatkowo kolekcję grup, do których należy, oraz kolekcję swoich podejść do
+        testów.
+
+  \item \textbf{Hierarchia pytań} - abstrakcyjna klasa \texttt{Question} przechowuje treść, liczbę
+        punktów i kolejność pytania. Dziedziczą po niej \texttt{ClosedQuestion} (pytanie zamknięte,
+        posiadające warianty odpowiedzi oraz znacznik wielokrotnego wyboru) i \texttt{OpenQuestion}
+        (pytanie otwarte z odpowiedzią wzorcową). Właściwość \texttt{RequiresManualGrading}
+        rozróżnia, czy pytanie wymaga ręcznej oceny.
+
+  \item \textbf{Hierarchia odpowiedzi} - abstrakcyjna klasa \texttt{StudentAnswer} jest bazą dla
+        \texttt{ClosedAnswer} (przechowuje zaznaczone warianty) oraz \texttt{OpenAnswer}
+        (przechowuje wpisany tekst). Pozwala to trzymać w jednej kolekcji odpowiedzi obu typów.
+\end{itemize}
+
+Oprócz dziedziczenia w projekcie wykorzystano interfejs \texttt{IPublishable}, implementowany przez
+klasę \texttt{Quiz}. Definiuje on właściwość \texttt{IsPublished} oraz metody \texttt{Publish()}
+i \texttt{Unpublish()}, służące do sterowania widocznością testu dla uczniów (stan aktywny
+i nieaktywny).
+
+Logikę aplikacji realizują klasy warstwy usług:
+
+\begin{itemize}
+  \item \texttt{DbRepository} - centralne repozytorium operacji na bazie danych. Hermetyzuje
+        tworzenie kontekstu, pobieranie i zapisywanie testów, grup, podejść i wyników oraz mapowanie
+        encji na obiekty transferu danych. Udostępnia m.in. metody zapisu nowego podejścia
+        (\texttt{AddAttempt}), ręcznej aktualizacji oceny (\texttt{UpdateGrading}), pobrania
+        najlepszego wyniku ucznia (\texttt{GetBestResult}), wyboru testów danego nauczyciela
+        (\texttt{GetTestsForTeacher}), zmiany widoczności testu (\texttt{SetTestActive}) oraz
+        bezpiecznego usuwania testu (\texttt{DeleteTest}).
+
+  \item \texttt{GradingService} - statyczna klasa odpowiedzialna za ocenianie. Metoda
+        \texttt{Grade} wyznacza liczbę punktów za pojedyncze pytanie (z punktami częściowymi
+        w pytaniach wielokrotnego wyboru), a metoda \texttt{Recompute} przelicza cały wynik
+        podejścia, uwzględniając pytania oczekujące na ręczną ocenę.
+
+  \item \texttt{CsvExporter} - eksportuje wyniki testu do pliku CSV z użyciem strumieni
+        (\texttt{StreamWriter}), dbając o poprawne kodowanie polskich znaków oraz cytowanie wartości.
+
+  \item \texttt{PasswordHash} - wylicza skrót SHA-256 hasła, dzięki czemu hasła nie są
+        przechowywane w bazie w postaci jawnej.
+
+  \item \texttt{Safe} - wspólny mechanizm obsługi wyjątków; wykonuje operacje bazodanowe
+        i wejścia/wyjścia w bloku zabezpieczającym, prezentując użytkownikowi czytelny komunikat
+        zamiast powodować awarię aplikacji.
+\end{itemize}
+
+Wzajemne powiązania najważniejszych klas modelu przedstawia diagram UML na
+rysunku~\ref{rys:uml}.
+
+\figscreen{uml.png}{0.95}{Diagram UML klas modelu aplikacji.}{rys:uml}
+
+\section{Minimalne wymagania programu}
+\label{sec:wymaganiaMin}
+
+\begin{itemize}
+  \item \textbf{System operacyjny:} Windows 10 lub Windows 11.
+  \item \textbf{Środowisko uruchomieniowe:} platforma .NET (wersja zgodna z projektem) wraz
+        ze wsparciem WPF.
+  \item \textbf{Serwer bazy danych:} PostgreSQL (zalecana wersja 13 lub nowsza), działający lokalnie
+        lub zdalnie, z dostępem do bazy aplikacji.
+  \item \textbf{Dodatkowe narzędzia:} środowisko programistyczne wspierające .NET (np. Visual
+        Studio), system kontroli wersji Git oraz narzędzie do zarządzania bazą danych (np. pgAdmin).
+\end{itemize}
+
+\section{Uruchomienie aplikacji}
+\label{sec:uruchomienie}
+
+Aplikacja łączy się z bazą danych PostgreSQL przy użyciu parametrów zdefiniowanych w klasie
+\texttt{AppDbContext}: serwer \texttt{localhost}, port \texttt{5432}, baza \texttt{testownik},
+użytkownik \texttt{postgres}. Przed pierwszym uruchomieniem należy zapewnić działający serwer
+PostgreSQL z dostępem do tych parametrów.
+
+Schemat bazy danych zakładany jest automatycznie. Przy starcie aplikacja wywołuje metodę
+\texttt{Database.Migrate()}, która tworzy bazę i nakłada wszystkie migracje Entity Framework Core,
+a następnie klasa \texttt{DbSeeder} wypełnia bazę danymi początkowymi (przykładowy nauczyciel,
+uczniowie, grupy oraz testy). Ręczne tworzenie tabel nie jest więc wymagane.
+
+Kolejne kroki uruchomienia:
+\begin{enumerate}
+  \item uruchomić serwer PostgreSQL i upewnić się, że jest dostępny na \texttt{localhost:5432};
+  \item otworzyć projekt w środowisku Visual Studio i uruchomić aplikację (lub wykonać polecenie
+        \texttt{dotnet run} w katalogu projektu);
+  \item przy pierwszym uruchomieniu baza zostanie utworzona i zasilona danymi demonstracyjnymi;
+  \item zalogować się przy użyciu jednego z kont demonstracyjnych.
+\end{enumerate}
+
+Konta demonstracyjne (hasło dla wszystkich: \texttt{demo1234}):
+\begin{itemize}
+  \item nauczyciel - login \texttt{m.dabrowski};
+  \item uczniowie - loginy \texttt{anna.k}, \texttt{piotr.n}, \texttt{maria.w} oraz kolejni.
+\end{itemize}

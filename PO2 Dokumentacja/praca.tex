@@ -1,0 +1,238 @@
+%==============================================================================
+% Praca dyplomowa (UR) — plik główny
+%==============================================================================
+
+\documentclass{urdpl}
+
+%------------------------------------------------------------------------------
+% JĘZYK / KODOWANIE (pdfLaTeX)
+%------------------------------------------------------------------------------
+\usepackage[main=polish,english]{babel}
+\usepackage[utf8]{inputenc} % tylko pdfLaTeX
+
+%------------------------------------------------------------------------------
+% MATEMATYKA
+%------------------------------------------------------------------------------
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+%------------------------------------------------------------------------------
+% HYPERLINKI
+%------------------------------------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+
+%------------------------------------------------------------------------------
+% FLOATY
+%------------------------------------------------------------------------------
+\usepackage{float}
+% Trzyma rysunki w obrębie sekcji (zrzut nie ucieka do innego ekranu).
+\usepackage[section]{placeins}
+
+%------------------------------------------------------------------------------
+% GRAFIKA WEKTOROWA (diagram Gantta, schematy)
+%------------------------------------------------------------------------------
+\usepackage{tikz}
+
+%------------------------------------------------------------------------------
+% TABELE (wg potrzeby)
+%------------------------------------------------------------------------------
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage[flushleft]{threeparttable}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
+
+%------------------------------------------------------------------------------
+% LISTINGI
+%------------------------------------------------------------------------------
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand{\lstlistlistingname}{Spis listingów}
+\renewcommand{\lstlistingname}{Listing}
+\providecommand{\listingname}{\lstlistingname} % alias do odwołań w tekście
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
+\lstdefinestyle{mystyle}{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  numbersep=6pt,
+  showstringspaces=false,
+  tabsize=2,
+  keywordstyle=\color{blue},
+  commentstyle=\color{codegreen},
+  stringstyle=\color{red},
+  literate={ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ó}{{\'o}}1 {ń}{{\'n}}1 {ł}{{\l{}}}1 {ś}{{\'s}}1 {ź}{{\'z}}1 {ż}{{\.z}}1
+           {Ą}{{\k{A}}}1 {Ć}{{\'C}}1 {Ę}{{\k{E}}}1 {Ó}{{\'O}}1 {Ń}{{\'N}}1 {Ł}{{\L{}}}1 {Ś}{{\'S}}1 {Ź}{{\'Z}}1 {Ż}{{\.Z}}1
+}
+\lstset{style=mystyle}
+
+
+
+\lstdefinestyle{matlabStyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=10pt,
+    % backgroundcolor=\color{gray!10},
+    % frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4
+}
+%------------------------------------------------------------------------------
+% PODKREŚLANIE + NUMERY LINII (opcjonalnie)
+%------------------------------------------------------------------------------
+\usepackage[normalem]{ulem}
+\usepackage{lineno}
+
+%------------------------------------------------------------------------------
+% CYTOWANIA
+%------------------------------------------------------------------------------
+\usepackage{csquotes}
+
+%------------------------------------------------------------------------------
+% Nazwy podpisów (opcjonalnie; zwykle babel i klasa wystarczą)
+%------------------------------------------------------------------------------
+\AtBeginDocument{
+  \renewcommand{\tablename}{Tabela}
+  \renewcommand{\figurename}{Rys.}
+}
+
+%------------------------------------------------------------------------------
+% ZRZUTY EKRANU / ILUSTRACJE
+% Pokazuje obraz, jeśli plik istnieje w figures/, w przeciwnym razie ramkę-
+% zaślepkę. Dzięki temu dokument zawsze się kompiluje, a ilustracje pojawiają
+% się automatycznie po wrzuceniu plików PNG.
+% Użycie: \figscreen{nazwa.png}{szerokosc 0-1}{Podpis.}{etykieta}
+%------------------------------------------------------------------------------
+\newcommand{\figscreen}[4]{%
+  \begin{figure}[htbp]
+    \centering
+    \IfFileExists{figures/#1}{%
+      \includegraphics[width=#2\linewidth,height=0.82\textheight,keepaspectratio]{figures/#1}%
+    }{%
+      \fbox{\parbox[c][5cm][c]{0.85\linewidth}{\centering\itshape
+        Miejsce na ilustrację --- zapisz plik \texttt{\detokenize{figures/#1}}}}%
+    }
+    \caption{#3\label{#4}}
+  \end{figure}%
+}
+
+%------------------------------------------------------------------------------
+% METADANE PRACY (dla urdpl.cls)
+%------------------------------------------------------------------------------
+\author{Michał Nocek}
+\shortauthor{M. Nocek}
+\noAlbum{134951}
+
+\titlePL{Testownik - aplikacja do zarządzania testami i ocenami}
+\titleEN{Testownik - a test and grade management application}
+
+\shorttitlePL{Testownik}
+\shorttitleEN{Testownik}
+
+\thesistype{Praca projektowa}
+\thesisDone{Praca wykonana pod kierunkiem\\ }
+\supervisor{mgr inż. Ewa Żesławska}
+
+\degreeprogramme{Informatyka}
+
+\date{2026}
+
+\department{Instytut Informatyki}
+\faculty{Wydział Nauk Ścisłych i Technicznych}
+
+
+%------------------------------------------------------------------------------
+% NUMERACJA
+%------------------------------------------------------------------------------
+\setlength{\cftsecnumwidth}{10mm}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{2}
+\brokenpenalty=10000\relax
+
+%==============================================================================
+\begin{document}
+%==============================================================================
+
+
+%------------------------------------------------------------------------------
+% Strona tytułowa + podziękowania
+%------------------------------------------------------------------------------
+\titlepages
+
+% (opcjonalnie) styl plain bez numerów na stronach typu plain
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+%------------------------------------------------------------------------------
+% Streszczenie jest pierwszym, NUMEROWANYM rozdziałem (jak w pracy projektowej)
+% — patrz chapters/streszczenie.tex, włączony niżej razem z resztą rozdziałów.
+%------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
+% Spis treści
+%------------------------------------------------------------------------------
+
+\cleardoublepage
+\selectlanguage{polish}
+\tableofcontents
+
+\clearpage
+% \linenumbers % jeśli nie chcesz numerów linii w całości, usuń lub przenieś
+
+%------------------------------------------------------------------------------
+% Rozdziały
+%------------------------------------------------------------------------------
+\include{chapters/streszczenie}
+\include{chapters/zalozenia}
+\include{chapters/struktura}
+\include{chapters/harmonogram}
+\include{chapters/prezentacja}
+\include{chapters/podsumowanie}
+
+%------------------------------------------------------------------------------
+% Bibliografia (przed spisami)
+%------------------------------------------------------------------------------
+
+\cleardoublepage
+\begingroup
+  \renewcommand{\emph}[1]{\textit{#1}} % wyłącz ulem na czas bibliografii
+  \addcontentsline{toc}{chapter}{Bibliografia}
+  \bibliographystyle{plain}
+  \bibliography{bibliografia}
+\endgroup
+\renewcommand{\emph}[1]{\uline{#1}} % przywróć ulem (opcjonalnie)
+
+%------------------------------------------------------------------------------
+% Spisy
+%------------------------------------------------------------------------------
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Spis rysunków}
+\listoffigures
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Spis tabel}
+\listoftables
+
+\end{document}

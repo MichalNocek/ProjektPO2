@@ -1,0 +1,43 @@
+\chapter{Streszczenie w języku polskim i angielskim}
+\label{cha:streszczenie}
+
+\section{Streszczenie w języku polskim}
+\label{sec:streszczeniePL}
+
+Dokument ten opisuje aplikację \emph{Testownik} - system informatyczny służący do tworzenia,
+udostępniania i przeprowadzania testów oraz do zarządzania wynikami uczniów. Głównym celem
+projektu było dostarczenie nauczycielowi narzędzia, które automatyzuje cały cykl pracy z testem:
+od ułożenia pytań, przez przypisanie testu grupom uczniów, aż po automatyczne i ręczne ocenianie
+odpowiedzi oraz analizę statystyczną wyników.
+
+Aplikacja została napisana w języku C\# na platformie .NET z wykorzystaniem technologii
+\emph{Windows Presentation Foundation} (WPF) do budowy interfejsu graficznego oraz \emph{Entity
+Framework Core} jako warstwy dostępu do relacyjnej bazy danych PostgreSQL. System rozróżnia dwie
+role użytkowników - nauczyciela i ucznia - udostępniając każdej z nich odrębny zestaw funkcji.
+Nauczyciel tworzy testy złożone z pytań jednokrotnego wyboru, wielokrotnego wyboru oraz pytań
+otwartych, zarządza grupami uczniów i analizuje wyniki, natomiast uczeń rozwiązuje przypisane mu
+testy w ograniczonym czasie i przegląda swoje oceny. W aplikacji zaimplementowano między innymi
+limit podejść do testu, automatyczne ocenianie pytań zamkniętych, ręczne ocenianie i edycję oceny,
+sterowanie widocznością testów, wykrywanie prób oszustwa, eksport wyników do pliku CSV oraz
+haszowanie haseł.
+
+\section{Streszczenie w języku angielskim}
+\label{sec:streszczenieEN}
+
+\selectlanguage{english}
+This document describes the \emph{Testownik} application - an information system for creating,
+sharing and conducting tests, as well as for managing students' results. The main goal of the
+project was to provide the teacher with a tool that automates the entire workflow of working with a
+test: from composing questions, through assigning the test to groups of students, up to automatic
+and manual grading of answers and the statistical analysis of results.
+
+The application was written in C\# on the .NET platform using \emph{Windows Presentation
+Foundation} (WPF) for the graphical user interface and \emph{Entity Framework Core} as the data
+access layer for a relational PostgreSQL database. The system distinguishes two user roles - the
+teacher and the student - providing each of them with a separate set of features. The teacher
+creates tests consisting of single-choice, multiple-choice and open questions, manages groups of
+students and analyses results, while the student solves the assigned tests within a limited time
+and reviews their grades. The application implements, among others, a limit on the number of
+attempts, automatic grading of closed questions, manual grading and grade editing, control over test
+visibility, cheating detection, exporting results to a CSV file and password hashing.
+\selectlanguage{polish}
